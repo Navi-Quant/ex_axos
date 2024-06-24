@@ -7,7 +7,8 @@ defmodule ExAxos.MixProject do
       version: "0.1.0",
       elixir: "~> 1.16",
       start_permanent: Mix.env() == :prod,
-      deps: deps()
+      deps: deps(),
+      aliases: aliases()
     ]
   end
 
@@ -25,6 +26,14 @@ defmodule ExAxos.MixProject do
       {:styler, "~> 0.11", only: [:dev, :test], runtime: false},
       {:oapi_generator, "~> 0.1.1", only: :dev, runtime: false},
       {:req, "0.5.0"}
+    ]
+  end
+
+  defp aliases do
+    [
+      gen_api: ["api.gen default priv/axos_openapi_spec.yaml"],
+      clean_api: ["cmd rm -rf lib/operations lib/schema"],
+      reset_api: ["clean_api", "gen_api"]
     ]
   end
 end
