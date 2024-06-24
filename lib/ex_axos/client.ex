@@ -13,6 +13,7 @@ defmodule ExAxos.Client do
 
   defp build_request(operation) do
     %{url: url, method: method, opts: opts} = operation
+    query = Map.get(operation, :query, [])
 
     username = opts[:username]
     password = opts[:password]
@@ -23,7 +24,8 @@ defmodule ExAxos.Client do
       url: url,
       method: method,
       auth: {:basic, "#{username}:#{password}"},
-      headers: %{x_tca_api_key: api_key}
+      headers: %{x_tca_api_key: api_key},
+      params: query
     )
   end
 
