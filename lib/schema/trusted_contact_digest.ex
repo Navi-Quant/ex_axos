@@ -77,33 +77,41 @@ defmodule ExAxos.Schema.TrustedContactDigest do
     [
       email: {:string, :generic},
       emailValid: :boolean,
-      emailValidationState: {:enum, ["VALID", "REQUIRED_VALID", "REQUIRED_INVALID", "INVALID", "DISABLED"]},
+      emailValidationState:
+        {:enum, ["VALID", "REQUIRED_VALID", "REQUIRED_INVALID", "INVALID", "DISABLED"]},
       firstName: {:string, :generic},
       firstNameValid: :boolean,
-      firstNameValidationState: {:enum, ["VALID", "REQUIRED_VALID", "REQUIRED_INVALID", "INVALID", "DISABLED"]},
+      firstNameValidationState:
+        {:enum, ["VALID", "REQUIRED_VALID", "REQUIRED_INVALID", "INVALID", "DISABLED"]},
       id: :integer,
       lastName: {:string, :generic},
       lastNameValid: :boolean,
-      lastNameValidationState: {:enum, ["VALID", "REQUIRED_VALID", "REQUIRED_INVALID", "INVALID", "DISABLED"]},
+      lastNameValidationState:
+        {:enum, ["VALID", "REQUIRED_VALID", "REQUIRED_INVALID", "INVALID", "DISABLED"]},
       phoneCountryCode: {:string, :generic},
       phoneCountryCodeValid: :boolean,
-      phoneCountryCodeValidationState: {:enum, ["VALID", "REQUIRED_VALID", "REQUIRED_INVALID", "INVALID", "DISABLED"]},
+      phoneCountryCodeValidationState:
+        {:enum, ["VALID", "REQUIRED_VALID", "REQUIRED_INVALID", "INVALID", "DISABLED"]},
       phoneNumber: {:string, :generic},
       phoneNumberCleaned: {:string, :generic},
       phoneNumberFormatted: {:string, :generic},
       phoneNumberValid: :boolean,
-      phoneNumberValidationState: {:enum, ["VALID", "REQUIRED_VALID", "REQUIRED_INVALID", "INVALID", "DISABLED"]},
+      phoneNumberValidationState:
+        {:enum, ["VALID", "REQUIRED_VALID", "REQUIRED_INVALID", "INVALID", "DISABLED"]},
       prefixDisplay: {:string, :generic},
       prefixType: {:enum, ["MR", "MRS", "AFG", "ATG"]},
       prefixValid: :boolean,
-      prefixValidationState: {:enum, ["VALID", "REQUIRED_VALID", "REQUIRED_INVALID", "INVALID", "DISABLED"]},
+      prefixValidationState:
+        {:enum, ["VALID", "REQUIRED_VALID", "REQUIRED_INVALID", "INVALID", "DISABLED"]},
       relationship: {:string, :generic},
       relationshipValid: :boolean,
-      relationshipValidationState: {:enum, ["VALID", "REQUIRED_VALID", "REQUIRED_INVALID", "INVALID", "DISABLED"]},
+      relationshipValidationState:
+        {:enum, ["VALID", "REQUIRED_VALID", "REQUIRED_INVALID", "INVALID", "DISABLED"]},
       suffixDisplay: {:string, :generic},
       suffixType: {:enum, ["JR", "SR", "I", "II", "III", "IV", "V"]},
       suffixValid: :boolean,
-      suffixValidationState: {:enum, ["VALID", "REQUIRED_VALID", "REQUIRED_INVALID", "INVALID", "DISABLED"]},
+      suffixValidationState:
+        {:enum, ["VALID", "REQUIRED_VALID", "REQUIRED_INVALID", "INVALID", "DISABLED"]},
       valid: :boolean
     ]
   end

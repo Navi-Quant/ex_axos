@@ -22,13 +22,21 @@ if Mix.env() == :dev do
       |> String.to_atom()
     end
 
-    def operation_function_name(state, operation_spec) do
-      operation_spec.summary
+    def operation_function_name(_state, operation_spec) do
+      operation_spec
       |> summary_to_operation_name()
       |> String.to_atom()
     end
 
-    defp summary_to_operation_name(summary) do
+    defp summary_to_operation_name(%{operation_id: "viewPositionsByStatementFamilyId_v1UsingGET"}) do
+      "view_positions_by_statement_family_id"
+    end
+
+    defp summary_to_operation_name(%{operation_id: "retrieveStatementFamilyPositions_v1UsingGET"}) do
+      "retrieve_statement_family_positions"
+    end
+
+    defp summary_to_operation_name(%{summary: summary}) do
       if String.contains?(summary, " ") do
         summary
         |> String.split([" ", "-"])

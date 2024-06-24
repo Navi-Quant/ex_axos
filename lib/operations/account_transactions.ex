@@ -43,7 +43,8 @@ defmodule ExAxos.AccountTransactions do
     client.request(%{
       args: [accountNumber: accountNumber, fromDate: fromDate, throughDate: throughDate],
       call: {ExAxos.AccountTransactions, :view_transactions_by_date_range},
-      url: "/rest/account/v1/transactions/#{accountNumber}/fromDate/#{fromDate}/throughDate/#{throughDate}",
+      url:
+        "/rest/account/v1/transactions/#{accountNumber}/fromDate/#{fromDate}/throughDate/#{throughDate}",
       method: :get,
       response: [
         {200, {ExAxos.Schema.AccountTransactionDigest, :t}},

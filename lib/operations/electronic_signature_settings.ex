@@ -140,13 +140,18 @@ defmodule ExAxos.ElectronicSignatureSettings do
   """
   @spec retrieves_docusign_templates_filtered_by_template_locked_attribute(String.t(), keyword) ::
           {:ok, ExAxos.Schema.DocusignFormDigest.t()} | :error
-  def retrieves_docusign_templates_filtered_by_template_locked_attribute(accountNumber, opts \\ []) do
+  def retrieves_docusign_templates_filtered_by_template_locked_attribute(
+        accountNumber,
+        opts \\ []
+      ) do
     client = opts[:client] || @default_client
     query = Keyword.take(opts, [:templateLocked])
 
     client.request(%{
       args: [accountNumber: accountNumber],
-      call: {ExAxos.ElectronicSignatureSettings, :retrieves_docusign_templates_filtered_by_template_locked_attribute},
+      call:
+        {ExAxos.ElectronicSignatureSettings,
+         :retrieves_docusign_templates_filtered_by_template_locked_attribute},
       url: "/rest/esignature/v1/docusign/templates/#{accountNumber}",
       method: :get,
       query: query,
@@ -170,7 +175,9 @@ defmodule ExAxos.ElectronicSignatureSettings do
 
     client.request(%{
       args: [accountNumber: accountNumber],
-      call: {ExAxos.ElectronicSignatureSettings, :unlocks_all_templates_recipients_signers_templatelocked},
+      call:
+        {ExAxos.ElectronicSignatureSettings,
+         :unlocks_all_templates_recipients_signers_templatelocked},
       url: "/rest/esignature/v1/docusign/templates/#{accountNumber}/unlocksigners",
       method: :put,
       response: [
@@ -192,13 +199,20 @@ defmodule ExAxos.ElectronicSignatureSettings do
           String.t(),
           keyword
         ) :: {:ok, ExAxos.Schema.RestResultDigest.t()} | :error
-  def unlocks_corresponding_template_id_recipients_signers_templatelocked(accountNumber, templateId, opts \\ []) do
+  def unlocks_corresponding_template_id_recipients_signers_templatelocked(
+        accountNumber,
+        templateId,
+        opts \\ []
+      ) do
     client = opts[:client] || @default_client
 
     client.request(%{
       args: [accountNumber: accountNumber, templateId: templateId],
-      call: {ExAxos.ElectronicSignatureSettings, :unlocks_corresponding_template_id_recipients_signers_templatelocked},
-      url: "/rest/esignature/v1/docusign/templates/#{accountNumber}/unlocktemplatesigners/#{templateId}",
+      call:
+        {ExAxos.ElectronicSignatureSettings,
+         :unlocks_corresponding_template_id_recipients_signers_templatelocked},
+      url:
+        "/rest/esignature/v1/docusign/templates/#{accountNumber}/unlocktemplatesigners/#{templateId}",
       method: :put,
       response: [
         {200, {ExAxos.Schema.RestResultDigest, :t}},
