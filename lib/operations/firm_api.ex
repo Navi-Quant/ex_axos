@@ -15,7 +15,8 @@ defmodule ExAxos.FirmAPI do
     * `search`: search
 
   """
-  @spec fetch_firms_v1_using_get(keyword) :: {:ok, ExAxos.FirmSearchResultDigest.t()} | :error
+  @spec fetch_firms_v1_using_get(keyword) ::
+          {:ok, ExAxos.Schema.FirmSearchResultDigest.t()} | :error
   def fetch_firms_v1_using_get(opts \\ []) do
     client = opts[:client] || @default_client
     query = Keyword.take(opts, [:search])
@@ -27,7 +28,7 @@ defmodule ExAxos.FirmAPI do
       method: :get,
       query: query,
       response: [
-        {200, {ExAxos.FirmSearchResultDigest, :t}},
+        {200, {ExAxos.Schema.FirmSearchResultDigest, :t}},
         {401, :null},
         {403, :null},
         {404, :null}
@@ -42,7 +43,7 @@ defmodule ExAxos.FirmAPI do
   Retrieve detailed information that pertains to the specified firm.
   """
   @spec firm_lookup_v1_using_get(String.t(), keyword) ::
-          {:ok, ExAxos.FirmSearchResultDigest.t()} | :error
+          {:ok, ExAxos.Schema.FirmSearchResultDigest.t()} | :error
   def firm_lookup_v1_using_get(firmId, opts \\ []) do
     client = opts[:client] || @default_client
 
@@ -52,7 +53,7 @@ defmodule ExAxos.FirmAPI do
       url: "/rest/firm/v1/firm/#{firmId}",
       method: :get,
       response: [
-        {200, {ExAxos.FirmSearchResultDigest, :t}},
+        {200, {ExAxos.Schema.FirmSearchResultDigest, :t}},
         {401, :null},
         {403, :null},
         {404, :null}

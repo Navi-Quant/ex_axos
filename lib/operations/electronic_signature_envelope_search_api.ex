@@ -16,7 +16,7 @@ defmodule ExAxos.ElectronicSignatureEnvelopeSearchAPI do
 
   """
   @spec view_envelope_v1_using_get(String.t(), keyword) ::
-          {:ok, ExAxos.EnvelopeSearchResultDigest.t()} | :error
+          {:ok, ExAxos.Schema.EnvelopeSearchResultDigest.t()} | :error
   def view_envelope_v1_using_get(envelopeId, opts \\ []) do
     client = opts[:client] || @default_client
     query = Keyword.take(opts, [:retrieveDocuments])
@@ -28,7 +28,7 @@ defmodule ExAxos.ElectronicSignatureEnvelopeSearchAPI do
       method: :get,
       query: query,
       response: [
-        {200, {ExAxos.EnvelopeSearchResultDigest, :t}},
+        {200, {ExAxos.Schema.EnvelopeSearchResultDigest, :t}},
         {401, :null},
         {403, :null},
         {404, :null}
@@ -51,7 +51,7 @@ defmodule ExAxos.ElectronicSignatureEnvelopeSearchAPI do
 
   """
   @spec view_envelopes_v1_using_get(keyword) ::
-          {:ok, ExAxos.EnvelopeSearchResultDigest.t()} | :error
+          {:ok, ExAxos.Schema.EnvelopeSearchResultDigest.t()} | :error
   def view_envelopes_v1_using_get(opts \\ []) do
     client = opts[:client] || @default_client
     query = Keyword.take(opts, [:envelopeStatus, :folderType, :fromDate, :toDate])
@@ -63,7 +63,7 @@ defmodule ExAxos.ElectronicSignatureEnvelopeSearchAPI do
       method: :get,
       query: query,
       response: [
-        {200, {ExAxos.EnvelopeSearchResultDigest, :t}},
+        {200, {ExAxos.Schema.EnvelopeSearchResultDigest, :t}},
         {401, :null},
         {403, :null},
         {404, :null}
@@ -78,7 +78,7 @@ defmodule ExAxos.ElectronicSignatureEnvelopeSearchAPI do
   View link
   """
   @spec view_link_v1_using_get(String.t(), keyword) ::
-          {:ok, ExAxos.EnvelopeLinkDigest.t()} | :error
+          {:ok, ExAxos.Schema.EnvelopeLinkDigest.t()} | :error
   def view_link_v1_using_get(envelopeId, opts \\ []) do
     client = opts[:client] || @default_client
 
@@ -87,7 +87,12 @@ defmodule ExAxos.ElectronicSignatureEnvelopeSearchAPI do
       call: {ExAxos.ElectronicSignatureEnvelopeSearchAPI, :view_link_v1_using_get},
       url: "/rest/esignature/v1/envelope/link/#{envelopeId}",
       method: :get,
-      response: [{200, {ExAxos.EnvelopeLinkDigest, :t}}, {401, :null}, {403, :null}, {404, :null}],
+      response: [
+        {200, {ExAxos.Schema.EnvelopeLinkDigest, :t}},
+        {401, :null},
+        {403, :null},
+        {404, :null}
+      ],
       opts: opts
     })
   end

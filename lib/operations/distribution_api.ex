@@ -11,7 +11,7 @@ defmodule ExAxos.DistributionAPI do
   List all Systematic Distributions tied to the account
   """
   @spec get_distributions_using_get(integer, keyword) ::
-          {:ok, ExAxos.DistributionResponseResultDigest.t()} | :error
+          {:ok, ExAxos.Schema.DistributionResponseResultDigest.t()} | :error
   def get_distributions_using_get(accountId, opts \\ []) do
     client = opts[:client] || @default_client
 
@@ -21,7 +21,7 @@ defmodule ExAxos.DistributionAPI do
       url: "/rest/account/v1/distributions/#{accountId}",
       method: :get,
       response: [
-        {200, {ExAxos.DistributionResponseResultDigest, :t}},
+        {200, {ExAxos.Schema.DistributionResponseResultDigest, :t}},
         {401, :null},
         {403, :null},
         {404, :null}

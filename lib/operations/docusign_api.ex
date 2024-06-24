@@ -8,8 +8,8 @@ defmodule ExAxos.DocusignAPI do
   @doc """
   createEnvelope
   """
-  @spec create_envelope_using_post(String.t(), ExAxos.EnvelopeDefinition.t(), keyword) ::
-          {:ok, ExAxos.CreateEnvelopeResponse.t()} | :error
+  @spec create_envelope_using_post(String.t(), ExAxos.Schema.EnvelopeDefinition.t(), keyword) ::
+          {:ok, ExAxos.Schema.CreateEnvelopeResponse.t()} | :error
   def create_envelope_using_post(sobo, body, opts \\ []) do
     client = opts[:client] || @default_client
 
@@ -19,9 +19,9 @@ defmodule ExAxos.DocusignAPI do
       url: "/rest/docusign/account/#{sobo}/envelope",
       body: body,
       method: :post,
-      request: [{"application/json", {ExAxos.EnvelopeDefinition, :t}}],
+      request: [{"application/json", {ExAxos.Schema.EnvelopeDefinition, :t}}],
       response: [
-        {200, {ExAxos.CreateEnvelopeResponse, :t}},
+        {200, {ExAxos.Schema.CreateEnvelopeResponse, :t}},
         {201, :null},
         {401, :null},
         {403, :null},
@@ -34,7 +34,7 @@ defmodule ExAxos.DocusignAPI do
   @doc """
   retrieveBrands
   """
-  @spec retrieve_brands_using_get(keyword) :: {:ok, ExAxos.Brands.t()} | :error
+  @spec retrieve_brands_using_get(keyword) :: {:ok, ExAxos.Schema.Brands.t()} | :error
   def retrieve_brands_using_get(opts \\ []) do
     client = opts[:client] || @default_client
 
@@ -43,7 +43,7 @@ defmodule ExAxos.DocusignAPI do
       call: {ExAxos.DocusignAPI, :retrieve_brands_using_get},
       url: "/rest/docusign/account/brands",
       method: :get,
-      response: [{200, {ExAxos.Brands, :t}}, {401, :null}, {403, :null}, {404, :null}],
+      response: [{200, {ExAxos.Schema.Brands, :t}}, {401, :null}, {403, :null}, {404, :null}],
       opts: opts
     })
   end
@@ -60,7 +60,7 @@ defmodule ExAxos.DocusignAPI do
 
   """
   @spec retrieve_envelopes_from_user_folder_using_get(String.t(), String.t(), keyword) ::
-          {:ok, ExAxos.EnvelopeSearchResult.t()} | :error
+          {:ok, ExAxos.Schema.EnvelopeSearchResult.t()} | :error
   def retrieve_envelopes_from_user_folder_using_get(folderId, sobo, opts \\ []) do
     client = opts[:client] || @default_client
     query = Keyword.take(opts, [:fromDate, :searchText, :status, :toDate])
@@ -72,7 +72,7 @@ defmodule ExAxos.DocusignAPI do
       method: :get,
       query: query,
       response: [
-        {200, {ExAxos.EnvelopeSearchResult, :t}},
+        {200, {ExAxos.Schema.EnvelopeSearchResult, :t}},
         {401, :null},
         {403, :null},
         {404, :null}
@@ -84,7 +84,8 @@ defmodule ExAxos.DocusignAPI do
   @doc """
   retrieveUserFolders
   """
-  @spec retrieve_user_folders_using_get(String.t(), keyword) :: {:ok, ExAxos.Folders.t()} | :error
+  @spec retrieve_user_folders_using_get(String.t(), keyword) ::
+          {:ok, ExAxos.Schema.Folders.t()} | :error
   def retrieve_user_folders_using_get(sobo, opts \\ []) do
     client = opts[:client] || @default_client
 
@@ -93,7 +94,7 @@ defmodule ExAxos.DocusignAPI do
       call: {ExAxos.DocusignAPI, :retrieve_user_folders_using_get},
       url: "/rest/docusign/account/#{sobo}/folders",
       method: :get,
-      response: [{200, {ExAxos.Folders, :t}}, {401, :null}, {403, :null}, {404, :null}],
+      response: [{200, {ExAxos.Schema.Folders, :t}}, {401, :null}, {403, :null}, {404, :null}],
       opts: opts
     })
   end

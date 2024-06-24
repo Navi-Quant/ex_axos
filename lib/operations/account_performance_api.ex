@@ -17,7 +17,7 @@ defmodule ExAxos.AccountPerformanceAPI do
 
   """
   @spec view_account_twr_using_get(String.t(), keyword) ::
-          {:ok, ExAxos.TotalReturnSummaryDigestsRest.t()} | :error
+          {:ok, ExAxos.Schema.TotalReturnSummaryDigestsRest.t()} | :error
   def view_account_twr_using_get(accountNumber, opts \\ []) do
     client = opts[:client] || @default_client
     query = Keyword.take(opts, [:fromDate, :toDate])
@@ -29,7 +29,7 @@ defmodule ExAxos.AccountPerformanceAPI do
       method: :get,
       query: query,
       response: [
-        {200, {ExAxos.TotalReturnSummaryDigestsRest, :t}},
+        {200, {ExAxos.Schema.TotalReturnSummaryDigestsRest, :t}},
         {401, :null},
         {403, :null},
         {404, :null}
@@ -44,7 +44,7 @@ defmodule ExAxos.AccountPerformanceAPI do
   Retrieve monthly account TWRs for the life of an account.
   """
   @spec view_monthly_account_twr_using_get(String.t(), keyword) ::
-          {:ok, ExAxos.TotalReturnItemDigestsRest.t()} | :error
+          {:ok, ExAxos.Schema.TotalReturnItemDigestsRest.t()} | :error
   def view_monthly_account_twr_using_get(accountNumber, opts \\ []) do
     client = opts[:client] || @default_client
 
@@ -54,7 +54,7 @@ defmodule ExAxos.AccountPerformanceAPI do
       url: "/rest/account/v1/monthlyAccountTWR/#{accountNumber}",
       method: :get,
       response: [
-        {200, {ExAxos.TotalReturnItemDigestsRest, :t}},
+        {200, {ExAxos.Schema.TotalReturnItemDigestsRest, :t}},
         {401, :null},
         {403, :null},
         {404, :null}

@@ -10,8 +10,8 @@ defmodule ExAxos.StatementFamilyAPI do
 
   Creates a statement family
   """
-  @spec create_statement_family_using_post(ExAxos.StatementFamilyEditDigest.t(), keyword) ::
-          {:ok, ExAxos.StatementFamilyResultDigest.t()} | :error
+  @spec create_statement_family_using_post(ExAxos.Schema.StatementFamilyEditDigest.t(), keyword) ::
+          {:ok, ExAxos.Schema.StatementFamilyResultDigest.t()} | :error
   def create_statement_family_using_post(body, opts \\ []) do
     client = opts[:client] || @default_client
 
@@ -21,9 +21,9 @@ defmodule ExAxos.StatementFamilyAPI do
       url: "/rest/statementFamily/v1/create",
       body: body,
       method: :post,
-      request: [{"application/json", {ExAxos.StatementFamilyEditDigest, :t}}],
+      request: [{"application/json", {ExAxos.Schema.StatementFamilyEditDigest, :t}}],
       response: [
-        {200, {ExAxos.StatementFamilyResultDigest, :t}},
+        {200, {ExAxos.Schema.StatementFamilyResultDigest, :t}},
         {201, :null},
         {401, :null},
         {403, :null},
@@ -38,8 +38,10 @@ defmodule ExAxos.StatementFamilyAPI do
 
   Edits a statement family
   """
-  @spec edit_statement_family_details_using_post(ExAxos.StatementFamilyEditDigest.t(), keyword) ::
-          {:ok, ExAxos.StatementFamilyResultDigest.t()} | :error
+  @spec edit_statement_family_details_using_post(
+          ExAxos.Schema.StatementFamilyEditDigest.t(),
+          keyword
+        ) :: {:ok, ExAxos.Schema.StatementFamilyResultDigest.t()} | :error
   def edit_statement_family_details_using_post(body, opts \\ []) do
     client = opts[:client] || @default_client
 
@@ -49,9 +51,9 @@ defmodule ExAxos.StatementFamilyAPI do
       url: "/rest/statementFamily/v1/edit/",
       body: body,
       method: :post,
-      request: [{"application/json", {ExAxos.StatementFamilyEditDigest, :t}}],
+      request: [{"application/json", {ExAxos.Schema.StatementFamilyEditDigest, :t}}],
       response: [
-        {200, {ExAxos.StatementFamilyResultDigest, :t}},
+        {200, {ExAxos.Schema.StatementFamilyResultDigest, :t}},
         {201, :null},
         {401, :null},
         {403, :null},
@@ -67,7 +69,7 @@ defmodule ExAxos.StatementFamilyAPI do
   Retrieves statement family info
   """
   @spec get_statement_family_details_using_get(String.t(), keyword) ::
-          {:ok, ExAxos.StatementFamilyResultDigest.t()} | :error
+          {:ok, ExAxos.Schema.StatementFamilyResultDigest.t()} | :error
   def get_statement_family_details_using_get(statementFamilyId, opts \\ []) do
     client = opts[:client] || @default_client
 
@@ -77,7 +79,7 @@ defmodule ExAxos.StatementFamilyAPI do
       url: "/rest/account/v1/statementFamily/#{statementFamilyId}",
       method: :get,
       response: [
-        {200, {ExAxos.StatementFamilyResultDigest, :t}},
+        {200, {ExAxos.Schema.StatementFamilyResultDigest, :t}},
         {401, :null},
         {403, :null},
         {404, :null}
@@ -92,7 +94,7 @@ defmodule ExAxos.StatementFamilyAPI do
   Searches for statement families matching search term
   """
   @spec search_statement_families_using_get(String.t(), keyword) ::
-          {:ok, ExAxos.StatementFamilyResultDigest.t()} | :error
+          {:ok, ExAxos.Schema.StatementFamilyResultDigest.t()} | :error
   def search_statement_families_using_get(statementFamilyName, opts \\ []) do
     client = opts[:client] || @default_client
 
@@ -102,7 +104,7 @@ defmodule ExAxos.StatementFamilyAPI do
       url: "/rest/account/v1/statementFamily/search/#{statementFamilyName}",
       method: :get,
       response: [
-        {200, {ExAxos.StatementFamilyResultDigest, :t}},
+        {200, {ExAxos.Schema.StatementFamilyResultDigest, :t}},
         {401, :null},
         {403, :null},
         {404, :null}

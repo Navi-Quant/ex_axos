@@ -9,7 +9,7 @@ defmodule ExAxos.AggInvestorController do
   findConfigById
   """
   @spec find_config_by_id_using_get(keyword) ::
-          {:ok, ExAxos.AggHeldAwaysRestResponse.t()} | :error
+          {:ok, ExAxos.Schema.AggHeldAwaysRestResponse.t()} | :error
   def find_config_by_id_using_get(opts \\ []) do
     client = opts[:client] || @default_client
 
@@ -19,7 +19,7 @@ defmodule ExAxos.AggInvestorController do
       url: "/rest/aggInvestor/v1/heldAways",
       method: :get,
       response: [
-        {200, {ExAxos.AggHeldAwaysRestResponse, :t}},
+        {200, {ExAxos.Schema.AggHeldAwaysRestResponse, :t}},
         {401, :null},
         {403, :null},
         {404, :null}
@@ -39,7 +39,7 @@ defmodule ExAxos.AggInvestorController do
 
   """
   @spec find_config_by_search_using_get(keyword) ::
-          {:ok, ExAxos.AggInvestorRestResponse.t()} | :error
+          {:ok, ExAxos.Schema.AggInvestorRestResponse.t()} | :error
   def find_config_by_search_using_get(opts \\ []) do
     client = opts[:client] || @default_client
     query = Keyword.take(opts, [:accountNumber, :guid, :userId])
@@ -51,7 +51,7 @@ defmodule ExAxos.AggInvestorController do
       method: :get,
       query: query,
       response: [
-        {200, {ExAxos.AggInvestorRestResponse, :t}},
+        {200, {ExAxos.Schema.AggInvestorRestResponse, :t}},
         {401, :null},
         {403, :null},
         {404, :null}
@@ -63,8 +63,8 @@ defmodule ExAxos.AggInvestorController do
   @doc """
   updateAggInvestor
   """
-  @spec update_agg_investor_using_put(ExAxos.AggInvestorUpdateRequest.t(), keyword) ::
-          {:ok, ExAxos.ResponseEntity.t()} | :error
+  @spec update_agg_investor_using_put(ExAxos.Schema.AggInvestorUpdateRequest.t(), keyword) ::
+          {:ok, ExAxos.Schema.ResponseEntity.t()} | :error
   def update_agg_investor_using_put(body, opts \\ []) do
     client = opts[:client] || @default_client
 
@@ -74,9 +74,9 @@ defmodule ExAxos.AggInvestorController do
       url: "/rest/aggInvestor/v1/config",
       body: body,
       method: :put,
-      request: [{"application/json", {ExAxos.AggInvestorUpdateRequest, :t}}],
+      request: [{"application/json", {ExAxos.Schema.AggInvestorUpdateRequest, :t}}],
       response: [
-        {200, {ExAxos.ResponseEntity, :t}},
+        {200, {ExAxos.Schema.ResponseEntity, :t}},
         {201, :null},
         {401, :null},
         {403, :null},

@@ -10,8 +10,8 @@ defmodule ExAxos.ContributionAPI do
 
   Provide a request to create a new contribution
   """
-  @spec create_contribution_using_post(ExAxos.ContributionDigestRest.t(), keyword) ::
-          {:ok, ExAxos.ContributionResponseResultDigest.t()} | :error
+  @spec create_contribution_using_post(ExAxos.Schema.ContributionDigestRest.t(), keyword) ::
+          {:ok, ExAxos.Schema.ContributionResponseResultDigest.t()} | :error
   def create_contribution_using_post(body, opts \\ []) do
     client = opts[:client] || @default_client
 
@@ -21,10 +21,10 @@ defmodule ExAxos.ContributionAPI do
       url: "/rest/account/v1/contribution/create",
       body: body,
       method: :post,
-      request: [{"application/json", {ExAxos.ContributionDigestRest, :t}}],
+      request: [{"application/json", {ExAxos.Schema.ContributionDigestRest, :t}}],
       response: [
-        {200, {ExAxos.ContributionResponseResultDigest, :t}},
-        {201, {ExAxos.ContributionResponseResultDigest, :t}},
+        {200, {ExAxos.Schema.ContributionResponseResultDigest, :t}},
+        {201, {ExAxos.Schema.ContributionResponseResultDigest, :t}},
         {400, :null},
         {401, :null},
         {403, :null},
@@ -40,8 +40,8 @@ defmodule ExAxos.ContributionAPI do
 
   Provide a request to edit a contribution
   """
-  @spec edit_contribution_using_post(ExAxos.ContributionDigestRest.t(), keyword) ::
-          {:ok, ExAxos.ContributionResponseResultDigest.t()} | :error
+  @spec edit_contribution_using_post(ExAxos.Schema.ContributionDigestRest.t(), keyword) ::
+          {:ok, ExAxos.Schema.ContributionResponseResultDigest.t()} | :error
   def edit_contribution_using_post(body, opts \\ []) do
     client = opts[:client] || @default_client
 
@@ -51,9 +51,9 @@ defmodule ExAxos.ContributionAPI do
       url: "/rest/account/v1/contribution/edit",
       body: body,
       method: :post,
-      request: [{"application/json", {ExAxos.ContributionDigestRest, :t}}],
+      request: [{"application/json", {ExAxos.Schema.ContributionDigestRest, :t}}],
       response: [
-        {200, {ExAxos.ContributionResponseResultDigest, :t}},
+        {200, {ExAxos.Schema.ContributionResponseResultDigest, :t}},
         {201, :null},
         {401, :null},
         {403, :null},
@@ -69,7 +69,7 @@ defmodule ExAxos.ContributionAPI do
   You must be associated to the account
   """
   @spec get_contributions_using_get(String.t(), keyword) ::
-          {:ok, ExAxos.ContributionResponseResultDigest.t()} | :error
+          {:ok, ExAxos.Schema.ContributionResponseResultDigest.t()} | :error
   def get_contributions_using_get(accountId, opts \\ []) do
     client = opts[:client] || @default_client
 
@@ -79,7 +79,7 @@ defmodule ExAxos.ContributionAPI do
       url: "/rest/account/v1/contributions/#{accountId}",
       method: :get,
       response: [
-        {200, {ExAxos.ContributionResponseResultDigest, :t}},
+        {200, {ExAxos.Schema.ContributionResponseResultDigest, :t}},
         {401, :null},
         {403, :null},
         {404, :null}
@@ -93,8 +93,8 @@ defmodule ExAxos.ContributionAPI do
 
   Initiate a request to suspend a contribution
   """
-  @spec suspend_contribution_using_put(ExAxos.ContributionSuspendRequest.t(), keyword) ::
-          {:ok, ExAxos.ContributionResponseResultDigest.t()} | :error
+  @spec suspend_contribution_using_put(ExAxos.Schema.ContributionSuspendRequest.t(), keyword) ::
+          {:ok, ExAxos.Schema.ContributionResponseResultDigest.t()} | :error
   def suspend_contribution_using_put(body, opts \\ []) do
     client = opts[:client] || @default_client
 
@@ -104,9 +104,9 @@ defmodule ExAxos.ContributionAPI do
       url: "/rest/account/v1/contribution/suspend",
       body: body,
       method: :put,
-      request: [{"application/json", {ExAxos.ContributionSuspendRequest, :t}}],
+      request: [{"application/json", {ExAxos.Schema.ContributionSuspendRequest, :t}}],
       response: [
-        {200, {ExAxos.ContributionResponseResultDigest, :t}},
+        {200, {ExAxos.Schema.ContributionResponseResultDigest, :t}},
         {201, :null},
         {401, :null},
         {403, :null},

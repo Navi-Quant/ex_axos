@@ -11,7 +11,7 @@ defmodule ExAxos.AccountTransactionsAPI do
   Retrieve the transactions for a specific account and date range
   """
   @spec view_transactions_by_date_range_v1_using_get(String.t(), String.t(), String.t(), keyword) ::
-          {:ok, ExAxos.AccountTransactionDigest.t()} | :error
+          {:ok, ExAxos.Schema.AccountTransactionDigest.t()} | :error
   def view_transactions_by_date_range_v1_using_get(
         accountNumber,
         fromDate,
@@ -27,7 +27,7 @@ defmodule ExAxos.AccountTransactionsAPI do
         "/rest/account/v1/transactions/#{accountNumber}/fromDate/#{fromDate}/throughDate/#{throughDate}",
       method: :get,
       response: [
-        {200, {ExAxos.AccountTransactionDigest, :t}},
+        {200, {ExAxos.Schema.AccountTransactionDigest, :t}},
         {401, :null},
         {403, :null},
         {404, :null}
@@ -42,7 +42,7 @@ defmodule ExAxos.AccountTransactionsAPI do
   Retrieve the transactions for a specific account
   """
   @spec view_transactions_v1_using_get(String.t(), keyword) ::
-          {:ok, ExAxos.AccountTransactionDigest.t()} | :error
+          {:ok, ExAxos.Schema.AccountTransactionDigest.t()} | :error
   def view_transactions_v1_using_get(accountNumber, opts \\ []) do
     client = opts[:client] || @default_client
 
@@ -52,7 +52,7 @@ defmodule ExAxos.AccountTransactionsAPI do
       url: "/rest/account/v1/transactions/#{accountNumber}",
       method: :get,
       response: [
-        {200, {ExAxos.AccountTransactionDigest, :t}},
+        {200, {ExAxos.Schema.AccountTransactionDigest, :t}},
         {401, :null},
         {403, :null},
         {404, :null}

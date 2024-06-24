@@ -9,7 +9,7 @@ defmodule ExAxos.AccountDeliveryOptionsAPI do
   retrieveDeliveryOptionsForAccount
   """
   @spec retrieve_delivery_options_for_account_using_get(String.t(), keyword) ::
-          {:ok, ExAxos.AccountDeliveryOptionsResponseDigest.t()} | :error
+          {:ok, ExAxos.Schema.AccountDeliveryOptionsResponseDigest.t()} | :error
   def retrieve_delivery_options_for_account_using_get(accountNumber, opts \\ []) do
     client = opts[:client] || @default_client
 
@@ -19,7 +19,7 @@ defmodule ExAxos.AccountDeliveryOptionsAPI do
       url: "/rest/account/v1/deliveryOptions/#{accountNumber}",
       method: :get,
       response: [
-        {200, {ExAxos.AccountDeliveryOptionsResponseDigest, :t}},
+        {200, {ExAxos.Schema.AccountDeliveryOptionsResponseDigest, :t}},
         {401, :null},
         {403, :null},
         {404, :null}
@@ -32,9 +32,9 @@ defmodule ExAxos.AccountDeliveryOptionsAPI do
   updateDeliveryOptionsForAccount
   """
   @spec update_delivery_options_for_account_using_put(
-          ExAxos.AccountDeliveryOptionsRequest.t(),
+          ExAxos.Schema.AccountDeliveryOptionsRequest.t(),
           keyword
-        ) :: {:ok, ExAxos.ResponseEntity.t()} | :error
+        ) :: {:ok, ExAxos.Schema.ResponseEntity.t()} | :error
   def update_delivery_options_for_account_using_put(body, opts \\ []) do
     client = opts[:client] || @default_client
 
@@ -44,9 +44,9 @@ defmodule ExAxos.AccountDeliveryOptionsAPI do
       url: "/rest/account/v1/deliveryOptions",
       body: body,
       method: :put,
-      request: [{"application/json", {ExAxos.AccountDeliveryOptionsRequest, :t}}],
+      request: [{"application/json", {ExAxos.Schema.AccountDeliveryOptionsRequest, :t}}],
       response: [
-        {200, {ExAxos.ResponseEntity, :t}},
+        {200, {ExAxos.Schema.ResponseEntity, :t}},
         {201, :null},
         {401, :null},
         {403, :null},

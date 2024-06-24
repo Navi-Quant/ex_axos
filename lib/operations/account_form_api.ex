@@ -11,7 +11,7 @@ defmodule ExAxos.AccountFormAPI do
   Returns a list of all available pdf forms
   """
   @spec get_tax_forms_by_account_using_get(String.t(), keyword) ::
-          {:ok, ExAxos.AccountFormsResultDigest.t()} | :error
+          {:ok, ExAxos.Schema.AccountFormsResultDigest.t()} | :error
   def get_tax_forms_by_account_using_get(accountNumber, opts \\ []) do
     client = opts[:client] || @default_client
 
@@ -21,7 +21,7 @@ defmodule ExAxos.AccountFormAPI do
       url: "/rest/account/v1/forms/#{accountNumber}",
       method: :get,
       response: [
-        {200, {ExAxos.AccountFormsResultDigest, :t}},
+        {200, {ExAxos.Schema.AccountFormsResultDigest, :t}},
         {401, :null},
         {403, :null},
         {404, :null}

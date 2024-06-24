@@ -11,7 +11,7 @@ defmodule ExAxos.AccountControlPersonAPI do
   Retrieve control person tied to account
   """
   @spec get_control_person_by_account_using_get(integer, keyword) ::
-          {:ok, ExAxos.AccountControlPersonDigest.t()} | :error
+          {:ok, ExAxos.Schema.AccountControlPersonDigest.t()} | :error
   def get_control_person_by_account_using_get(accountNumber, opts \\ []) do
     client = opts[:client] || @default_client
 
@@ -21,7 +21,7 @@ defmodule ExAxos.AccountControlPersonAPI do
       url: "/rest/account/v1/controlPerson/#{accountNumber}",
       method: :get,
       response: [
-        {200, {ExAxos.AccountControlPersonDigest, :t}},
+        {200, {ExAxos.Schema.AccountControlPersonDigest, :t}},
         {401, :null},
         {403, :null},
         {404, :null}
@@ -35,8 +35,11 @@ defmodule ExAxos.AccountControlPersonAPI do
 
   Update Control Person for existing Advisor Services Account.
   """
-  @spec update_control_person_using_post(integer, ExAxos.AccountControlPersonDigest.t(), keyword) ::
-          {:ok, ExAxos.RestResultDigest.t()} | :error
+  @spec update_control_person_using_post(
+          integer,
+          ExAxos.Schema.AccountControlPersonDigest.t(),
+          keyword
+        ) :: {:ok, ExAxos.Schema.RestResultDigest.t()} | :error
   def update_control_person_using_post(accountNumber, body, opts \\ []) do
     client = opts[:client] || @default_client
 
@@ -46,9 +49,9 @@ defmodule ExAxos.AccountControlPersonAPI do
       url: "/rest/account/v1/edit/controlPerson/#{accountNumber}",
       body: body,
       method: :post,
-      request: [{"application/json", {ExAxos.AccountControlPersonDigest, :t}}],
+      request: [{"application/json", {ExAxos.Schema.AccountControlPersonDigest, :t}}],
       response: [
-        {200, {ExAxos.RestResultDigest, :t}},
+        {200, {ExAxos.Schema.RestResultDigest, :t}},
         {201, :null},
         {401, :null},
         {403, :null},

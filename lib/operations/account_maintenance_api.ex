@@ -10,8 +10,8 @@ defmodule ExAxos.AccountMaintenanceAPI do
 
   Create a new account in Advisor Services with the information provided. The account will be created with a status of pending.
   """
-  @spec generate_account_v1_using_post(ExAxos.AccountGenerationDigest.t(), keyword) ::
-          {:ok, ExAxos.AccountGenerationDigest.t()} | :error
+  @spec generate_account_v1_using_post(ExAxos.Schema.AccountGenerationDigest.t(), keyword) ::
+          {:ok, ExAxos.Schema.AccountGenerationDigest.t()} | :error
   def generate_account_v1_using_post(body, opts \\ []) do
     client = opts[:client] || @default_client
 
@@ -21,9 +21,9 @@ defmodule ExAxos.AccountMaintenanceAPI do
       url: "/rest/account/v1/create",
       body: body,
       method: :post,
-      request: [{"application/json", {ExAxos.AccountGenerationDigest, :t}}],
+      request: [{"application/json", {ExAxos.Schema.AccountGenerationDigest, :t}}],
       response: [
-        {200, {ExAxos.AccountGenerationDigest, :t}},
+        {200, {ExAxos.Schema.AccountGenerationDigest, :t}},
         {201, :null},
         {401, :null},
         {403, :null},
@@ -40,9 +40,9 @@ defmodule ExAxos.AccountMaintenanceAPI do
   """
   @spec update_account_beneficiary_v1_using_post(
           String.t(),
-          ExAxos.AccountGenerationDigest.t(),
+          ExAxos.Schema.AccountGenerationDigest.t(),
           keyword
-        ) :: {:ok, ExAxos.AccountMaintenanceUpdateResultDigest.t()} | :error
+        ) :: {:ok, ExAxos.Schema.AccountMaintenanceUpdateResultDigest.t()} | :error
   def update_account_beneficiary_v1_using_post(accountNumber, body, opts \\ []) do
     client = opts[:client] || @default_client
 
@@ -52,9 +52,9 @@ defmodule ExAxos.AccountMaintenanceAPI do
       url: "/rest/account/v1/edit/beneficiaries/#{accountNumber}",
       body: body,
       method: :post,
-      request: [{"application/json", {ExAxos.AccountGenerationDigest, :t}}],
+      request: [{"application/json", {ExAxos.Schema.AccountGenerationDigest, :t}}],
       response: [
-        {200, {ExAxos.AccountMaintenanceUpdateResultDigest, :t}},
+        {200, {ExAxos.Schema.AccountMaintenanceUpdateResultDigest, :t}},
         {201, :null},
         {401, :null},
         {403, :null},
@@ -69,8 +69,11 @@ defmodule ExAxos.AccountMaintenanceAPI do
 
   For an existing Advisor Services Account, the fees can be added or removed.  To Remove fees from an account, simply send an empty array to the entry point.
   """
-  @spec update_account_fee_v1_using_post(String.t(), ExAxos.AccountGenerationDigest.t(), keyword) ::
-          {:ok, ExAxos.AccountMaintenanceUpdateResultDigest.t()} | :error
+  @spec update_account_fee_v1_using_post(
+          String.t(),
+          ExAxos.Schema.AccountGenerationDigest.t(),
+          keyword
+        ) :: {:ok, ExAxos.Schema.AccountMaintenanceUpdateResultDigest.t()} | :error
   def update_account_fee_v1_using_post(accountNumber, body, opts \\ []) do
     client = opts[:client] || @default_client
 
@@ -80,9 +83,9 @@ defmodule ExAxos.AccountMaintenanceAPI do
       url: "/rest/account/v1/edit/fees/#{accountNumber}",
       body: body,
       method: :post,
-      request: [{"application/json", {ExAxos.AccountGenerationDigest, :t}}],
+      request: [{"application/json", {ExAxos.Schema.AccountGenerationDigest, :t}}],
       response: [
-        {200, {ExAxos.AccountMaintenanceUpdateResultDigest, :t}},
+        {200, {ExAxos.Schema.AccountMaintenanceUpdateResultDigest, :t}},
         {201, :null},
         {401, :null},
         {403, :null},
@@ -99,9 +102,9 @@ defmodule ExAxos.AccountMaintenanceAPI do
   """
   @spec update_account_model_v1_using_post(
           String.t(),
-          ExAxos.AccountGenerationDigest.t(),
+          ExAxos.Schema.AccountGenerationDigest.t(),
           keyword
-        ) :: {:ok, ExAxos.AccountMaintenanceUpdateResultDigest.t()} | :error
+        ) :: {:ok, ExAxos.Schema.AccountMaintenanceUpdateResultDigest.t()} | :error
   def update_account_model_v1_using_post(accountNumber, body, opts \\ []) do
     client = opts[:client] || @default_client
 
@@ -111,9 +114,9 @@ defmodule ExAxos.AccountMaintenanceAPI do
       url: "/rest/account/v1/edit/models/#{accountNumber}",
       body: body,
       method: :post,
-      request: [{"application/json", {ExAxos.AccountGenerationDigest, :t}}],
+      request: [{"application/json", {ExAxos.Schema.AccountGenerationDigest, :t}}],
       response: [
-        {200, {ExAxos.AccountMaintenanceUpdateResultDigest, :t}},
+        {200, {ExAxos.Schema.AccountMaintenanceUpdateResultDigest, :t}},
         {201, :null},
         {401, :null},
         {403, :null},
@@ -130,9 +133,9 @@ defmodule ExAxos.AccountMaintenanceAPI do
   """
   @spec update_account_representative_v1_using_post(
           String.t(),
-          ExAxos.AccountGenerationDigest.t(),
+          ExAxos.Schema.AccountGenerationDigest.t(),
           keyword
-        ) :: {:ok, ExAxos.AccountMaintenanceUpdateResultDigest.t()} | :error
+        ) :: {:ok, ExAxos.Schema.AccountMaintenanceUpdateResultDigest.t()} | :error
   def update_account_representative_v1_using_post(accountNumber, body, opts \\ []) do
     client = opts[:client] || @default_client
 
@@ -142,9 +145,9 @@ defmodule ExAxos.AccountMaintenanceAPI do
       url: "/rest/account/v1/edit/representatives/#{accountNumber}",
       body: body,
       method: :post,
-      request: [{"application/json", {ExAxos.AccountGenerationDigest, :t}}],
+      request: [{"application/json", {ExAxos.Schema.AccountGenerationDigest, :t}}],
       response: [
-        {200, {ExAxos.AccountMaintenanceUpdateResultDigest, :t}},
+        {200, {ExAxos.Schema.AccountMaintenanceUpdateResultDigest, :t}},
         {201, :null},
         {401, :null},
         {403, :null},
@@ -159,8 +162,11 @@ defmodule ExAxos.AccountMaintenanceAPI do
 
   Update an account in Advisor Services with the information provided.
   """
-  @spec update_account_v1_using_post(String.t(), ExAxos.AccountGenerationDigest.t(), keyword) ::
-          {:ok, ExAxos.AccountGenerationDigest.t()} | :error
+  @spec update_account_v1_using_post(
+          String.t(),
+          ExAxos.Schema.AccountGenerationDigest.t(),
+          keyword
+        ) :: {:ok, ExAxos.Schema.AccountGenerationDigest.t()} | :error
   def update_account_v1_using_post(accountNumber, body, opts \\ []) do
     client = opts[:client] || @default_client
 
@@ -170,9 +176,9 @@ defmodule ExAxos.AccountMaintenanceAPI do
       url: "/rest/account/v1/edit/#{accountNumber}",
       body: body,
       method: :post,
-      request: [{"application/json", {ExAxos.AccountGenerationDigest, :t}}],
+      request: [{"application/json", {ExAxos.Schema.AccountGenerationDigest, :t}}],
       response: [
-        {200, {ExAxos.AccountGenerationDigest, :t}},
+        {200, {ExAxos.Schema.AccountGenerationDigest, :t}},
         {201, :null},
         {401, :null},
         {403, :null},

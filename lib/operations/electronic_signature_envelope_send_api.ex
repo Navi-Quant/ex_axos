@@ -11,7 +11,7 @@ defmodule ExAxos.ElectronicSignatureEnvelopeSendAPI do
   Resend documents to recipients for an account to be signed electronically
   """
   @spec resend_envelope_v1_using_put(String.t(), keyword) ::
-          {:ok, ExAxos.ElectronicSignatureSendStatusDigest.t()} | :error
+          {:ok, ExAxos.Schema.ElectronicSignatureSendStatusDigest.t()} | :error
   def resend_envelope_v1_using_put(envelopeId, opts \\ []) do
     client = opts[:client] || @default_client
 
@@ -21,7 +21,7 @@ defmodule ExAxos.ElectronicSignatureEnvelopeSendAPI do
       url: "/rest/esignature/v1/envelope/resend/#{envelopeId}",
       method: :put,
       response: [
-        {200, {ExAxos.ElectronicSignatureSendStatusDigest, :t}},
+        {200, {ExAxos.Schema.ElectronicSignatureSendStatusDigest, :t}},
         {201, :null},
         {401, :null},
         {403, :null},
@@ -36,8 +36,8 @@ defmodule ExAxos.ElectronicSignatureEnvelopeSendAPI do
 
   Send documents to recipients for an account to be signed electronically.
   """
-  @spec send_envelope_v1_using_post(ExAxos.ElectronicSignatureEnvelopeDigest.t(), keyword) ::
-          {:ok, ExAxos.ElectronicSignatureSendStatusDigest.t()} | :error
+  @spec send_envelope_v1_using_post(ExAxos.Schema.ElectronicSignatureEnvelopeDigest.t(), keyword) ::
+          {:ok, ExAxos.Schema.ElectronicSignatureSendStatusDigest.t()} | :error
   def send_envelope_v1_using_post(body, opts \\ []) do
     client = opts[:client] || @default_client
 
@@ -47,9 +47,9 @@ defmodule ExAxos.ElectronicSignatureEnvelopeSendAPI do
       url: "/rest/esignature/v1/envelope/send",
       body: body,
       method: :post,
-      request: [{"application/json", {ExAxos.ElectronicSignatureEnvelopeDigest, :t}}],
+      request: [{"application/json", {ExAxos.Schema.ElectronicSignatureEnvelopeDigest, :t}}],
       response: [
-        {200, {ExAxos.ElectronicSignatureSendStatusDigest, :t}},
+        {200, {ExAxos.Schema.ElectronicSignatureSendStatusDigest, :t}},
         {201, :null},
         {401, :null},
         {403, :null},

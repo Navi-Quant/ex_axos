@@ -11,7 +11,7 @@ defmodule ExAxos.AccountAssetsInTransferAPI do
   Retrieves the detailed assets in transfer for an account
   """
   @spec view_assets_in_transfer_v1_using_get(String.t(), keyword) ::
-          {:ok, ExAxos.AccountAssetsInTransferResultDigest.t()} | :error
+          {:ok, ExAxos.Schema.AccountAssetsInTransferResultDigest.t()} | :error
   def view_assets_in_transfer_v1_using_get(accountNumber, opts \\ []) do
     client = opts[:client] || @default_client
 
@@ -21,7 +21,7 @@ defmodule ExAxos.AccountAssetsInTransferAPI do
       url: "/rest/account/v1/assetsInTransfer/#{accountNumber}",
       method: :get,
       response: [
-        {200, {ExAxos.AccountAssetsInTransferResultDigest, :t}},
+        {200, {ExAxos.Schema.AccountAssetsInTransferResultDigest, :t}},
         {401, :null},
         {403, :null},
         {404, :null}

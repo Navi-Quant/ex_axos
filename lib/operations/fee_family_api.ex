@@ -11,7 +11,7 @@ defmodule ExAxos.FeeFamilyAPI do
   Retrieve detailed information that pertains to the fee family specified.
   """
   @spec fee_family_lookup_v1_using_get(String.t(), keyword) ::
-          {:ok, ExAxos.FeeFamilyRestDigest.t()} | :error
+          {:ok, ExAxos.Schema.FeeFamilyRestDigest.t()} | :error
   def fee_family_lookup_v1_using_get(feeFamilyId, opts \\ []) do
     client = opts[:client] || @default_client
 
@@ -21,7 +21,7 @@ defmodule ExAxos.FeeFamilyAPI do
       url: "/rest/fee/v1/feeFamily/#{feeFamilyId}",
       method: :get,
       response: [
-        {200, {ExAxos.FeeFamilyRestDigest, :t}},
+        {200, {ExAxos.Schema.FeeFamilyRestDigest, :t}},
         {401, :null},
         {403, :null},
         {404, :null}
@@ -36,7 +36,7 @@ defmodule ExAxos.FeeFamilyAPI do
   Retrieve detailed information that pertains to the fee schedule specified.
   """
   @spec fee_schedule_lookup_v1_using_get(String.t(), keyword) ::
-          {:ok, ExAxos.FeeFamilyRestDigest.t()} | :error
+          {:ok, ExAxos.Schema.FeeFamilyRestDigest.t()} | :error
   def fee_schedule_lookup_v1_using_get(feeScheduleId, opts \\ []) do
     client = opts[:client] || @default_client
 
@@ -46,7 +46,7 @@ defmodule ExAxos.FeeFamilyAPI do
       url: "/rest/fee/v1/feeSchedule/#{feeScheduleId}",
       method: :get,
       response: [
-        {200, {ExAxos.FeeFamilyRestDigest, :t}},
+        {200, {ExAxos.Schema.FeeFamilyRestDigest, :t}},
         {401, :null},
         {403, :null},
         {404, :null}
@@ -61,7 +61,7 @@ defmodule ExAxos.FeeFamilyAPI do
   Retrieve a list of all Fee Schedules for a specific Account Type
   """
   @spec fetch_all_fees_by_account_type_v1_using_get(String.t(), keyword) ::
-          {:ok, ExAxos.FeeScheduleSearchResultDigest.t()} | :error
+          {:ok, ExAxos.Schema.FeeScheduleSearchResultDigest.t()} | :error
   def fetch_all_fees_by_account_type_v1_using_get(accountType, opts \\ []) do
     client = opts[:client] || @default_client
 
@@ -71,7 +71,7 @@ defmodule ExAxos.FeeFamilyAPI do
       url: "/rest/fee/v1/feeSchedules/accountType/#{accountType}",
       method: :get,
       response: [
-        {200, {ExAxos.FeeScheduleSearchResultDigest, :t}},
+        {200, {ExAxos.Schema.FeeScheduleSearchResultDigest, :t}},
         {401, :null},
         {403, :null},
         {404, :null}
@@ -91,7 +91,7 @@ defmodule ExAxos.FeeFamilyAPI do
 
   """
   @spec fetch_all_fees_v1_using_get(keyword) ::
-          {:ok, ExAxos.FeeScheduleSearchResultDigest.t()} | :error
+          {:ok, ExAxos.Schema.FeeScheduleSearchResultDigest.t()} | :error
   def fetch_all_fees_v1_using_get(opts \\ []) do
     client = opts[:client] || @default_client
     query = Keyword.take(opts, [:excludeFeesForFamilyId])
@@ -103,7 +103,7 @@ defmodule ExAxos.FeeFamilyAPI do
       method: :get,
       query: query,
       response: [
-        {200, {ExAxos.FeeScheduleSearchResultDigest, :t}},
+        {200, {ExAxos.Schema.FeeScheduleSearchResultDigest, :t}},
         {401, :null},
         {403, :null},
         {404, :null}
@@ -123,7 +123,7 @@ defmodule ExAxos.FeeFamilyAPI do
 
   """
   @spec fetch_fee_families_v1_using_get(keyword) ::
-          {:ok, ExAxos.FeeFamilySearchResultDigest.t()} | :error
+          {:ok, ExAxos.Schema.FeeFamilySearchResultDigest.t()} | :error
   def fetch_fee_families_v1_using_get(opts \\ []) do
     client = opts[:client] || @default_client
     query = Keyword.take(opts, [:search])
@@ -135,7 +135,7 @@ defmodule ExAxos.FeeFamilyAPI do
       method: :get,
       query: query,
       response: [
-        {200, {ExAxos.FeeFamilySearchResultDigest, :t}},
+        {200, {ExAxos.Schema.FeeFamilySearchResultDigest, :t}},
         {401, :null},
         {403, :null},
         {404, :null}

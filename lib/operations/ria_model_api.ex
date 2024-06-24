@@ -11,7 +11,7 @@ defmodule ExAxos.RiaModelAPI do
   Retrieve a list of models for a specified RIA
   """
   @spec get_models_for_ria_using_get(String.t(), keyword) ::
-          {:ok, ExAxos.RiaModelDigest.t()} | :error
+          {:ok, ExAxos.Schema.RiaModelDigest.t()} | :error
   def get_models_for_ria_using_get(advisorId, opts \\ []) do
     client = opts[:client] || @default_client
 
@@ -20,7 +20,12 @@ defmodule ExAxos.RiaModelAPI do
       call: {ExAxos.RiaModelAPI, :get_models_for_ria_using_get},
       url: "/rest/model/v1/riamodels/#{advisorId}",
       method: :get,
-      response: [{200, {ExAxos.RiaModelDigest, :t}}, {401, :null}, {403, :null}, {404, :null}],
+      response: [
+        {200, {ExAxos.Schema.RiaModelDigest, :t}},
+        {401, :null},
+        {403, :null},
+        {404, :null}
+      ],
       opts: opts
     })
   end

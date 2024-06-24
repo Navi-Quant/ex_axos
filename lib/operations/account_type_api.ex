@@ -11,7 +11,7 @@ defmodule ExAxos.AccountTypeAPI do
   Retrieve detailed information that pertains to the account type specified
   """
   @spec view_account_type_detail_v1_using_get(String.t(), keyword) ::
-          {:ok, ExAxos.AccountTypeDetailDigest.t()} | :error
+          {:ok, ExAxos.Schema.AccountTypeDetailDigest.t()} | :error
   def view_account_type_detail_v1_using_get(accountTypeCode, opts \\ []) do
     client = opts[:client] || @default_client
 
@@ -21,7 +21,7 @@ defmodule ExAxos.AccountTypeAPI do
       url: "/rest/accountType/v1/accountType/#{accountTypeCode}",
       method: :get,
       response: [
-        {200, {ExAxos.AccountTypeDetailDigest, :t}},
+        {200, {ExAxos.Schema.AccountTypeDetailDigest, :t}},
         {401, :null},
         {403, :null},
         {404, :null}
@@ -36,7 +36,7 @@ defmodule ExAxos.AccountTypeAPI do
   Retrieve information that pertains to the account type specified
   """
   @spec view_account_types_v1_using_get(keyword) ::
-          {:ok, ExAxos.AccountTypeListDigest.t()} | :error
+          {:ok, ExAxos.Schema.AccountTypeListDigest.t()} | :error
   def view_account_types_v1_using_get(opts \\ []) do
     client = opts[:client] || @default_client
 
@@ -46,7 +46,7 @@ defmodule ExAxos.AccountTypeAPI do
       url: "/rest/accountType/v1/accountTypes",
       method: :get,
       response: [
-        {200, {ExAxos.AccountTypeListDigest, :t}},
+        {200, {ExAxos.Schema.AccountTypeListDigest, :t}},
         {401, :null},
         {403, :null},
         {404, :null}

@@ -11,7 +11,7 @@ defmodule ExAxos.AnalyticsSummaryAPI do
   Retrieve summary analytics that pertains to the user's book of business.
   """
   @spec analytics_summary_v1_using_get(String.t(), keyword) ::
-          {:ok, ExAxos.FirmSearchResultDigest.t()} | :error
+          {:ok, ExAxos.Schema.FirmSearchResultDigest.t()} | :error
   def analytics_summary_v1_using_get(summaryType, opts \\ []) do
     client = opts[:client] || @default_client
 
@@ -21,7 +21,7 @@ defmodule ExAxos.AnalyticsSummaryAPI do
       url: "/rest/analytics/v1/analyticsSummary/#{summaryType}",
       method: :get,
       response: [
-        {200, {ExAxos.FirmSearchResultDigest, :t}},
+        {200, {ExAxos.Schema.FirmSearchResultDigest, :t}},
         {401, :null},
         {403, :null},
         {404, :null}

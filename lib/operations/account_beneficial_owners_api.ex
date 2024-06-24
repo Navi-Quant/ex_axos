@@ -11,7 +11,7 @@ defmodule ExAxos.AccountBeneficialOwnersAPI do
   Retrieve beneficial owners for an account.
   """
   @spec get_beneficial_owners_by_account_using_get(integer, keyword) ::
-          {:ok, ExAxos.AccountBeneficialOwnersRestDigest.t()} | :error
+          {:ok, ExAxos.Schema.AccountBeneficialOwnersRestDigest.t()} | :error
   def get_beneficial_owners_by_account_using_get(accountNumber, opts \\ []) do
     client = opts[:client] || @default_client
 
@@ -21,7 +21,7 @@ defmodule ExAxos.AccountBeneficialOwnersAPI do
       url: "/rest/account/v1/beneficialOwners/#{accountNumber}",
       method: :get,
       response: [
-        {200, {ExAxos.AccountBeneficialOwnersRestDigest, :t}},
+        {200, {ExAxos.Schema.AccountBeneficialOwnersRestDigest, :t}},
         {401, :null},
         {403, :null},
         {404, :null}
@@ -37,9 +37,9 @@ defmodule ExAxos.AccountBeneficialOwnersAPI do
   """
   @spec update_beneficial_owners_using_post(
           integer,
-          ExAxos.AccountBeneficialOwnersRestDigest.t(),
+          ExAxos.Schema.AccountBeneficialOwnersRestDigest.t(),
           keyword
-        ) :: {:ok, ExAxos.RestResultDigest.t()} | :error
+        ) :: {:ok, ExAxos.Schema.RestResultDigest.t()} | :error
   def update_beneficial_owners_using_post(accountNumber, body, opts \\ []) do
     client = opts[:client] || @default_client
 
@@ -49,9 +49,9 @@ defmodule ExAxos.AccountBeneficialOwnersAPI do
       url: "/rest/account/v1/edit/beneficialOwners/#{accountNumber}",
       body: body,
       method: :post,
-      request: [{"application/json", {ExAxos.AccountBeneficialOwnersRestDigest, :t}}],
+      request: [{"application/json", {ExAxos.Schema.AccountBeneficialOwnersRestDigest, :t}}],
       response: [
-        {200, {ExAxos.RestResultDigest, :t}},
+        {200, {ExAxos.Schema.RestResultDigest, :t}},
         {201, :null},
         {401, :null},
         {403, :null},

@@ -16,7 +16,7 @@ defmodule ExAxos.AccountPositionsAPI do
 
   """
   @spec retrieve_statement_family_positions_v1_using_get(String.t(), keyword) ::
-          {:ok, ExAxos.StatementFamilyAccountPositionsDigest.t()} | :error
+          {:ok, ExAxos.Schema.StatementFamilyAccountPositionsDigest.t()} | :error
   def retrieve_statement_family_positions_v1_using_get(statementFamilyId, opts \\ []) do
     client = opts[:client] || @default_client
     query = Keyword.take(opts, [:custodyManagement])
@@ -28,7 +28,7 @@ defmodule ExAxos.AccountPositionsAPI do
       method: :get,
       query: query,
       response: [
-        {200, {ExAxos.StatementFamilyAccountPositionsDigest, :t}},
+        {200, {ExAxos.Schema.StatementFamilyAccountPositionsDigest, :t}},
         {401, :null},
         {403, :null},
         {404, :null}
@@ -43,7 +43,7 @@ defmodule ExAxos.AccountPositionsAPI do
   Return all accounts and the positons within the account attached to a statement family.
   """
   @spec view_positions_by_statement_family_id_v1_using_get(String.t(), keyword) ::
-          {:ok, ExAxos.StatementFamilyPositionsDigest.t()} | :error
+          {:ok, ExAxos.Schema.StatementFamilyPositionsDigest.t()} | :error
   def view_positions_by_statement_family_id_v1_using_get(statementFamilyId, opts \\ []) do
     client = opts[:client] || @default_client
 
@@ -53,7 +53,7 @@ defmodule ExAxos.AccountPositionsAPI do
       url: "/rest/account/v1/positionsByStatementFamily/#{statementFamilyId}",
       method: :get,
       response: [
-        {200, {ExAxos.StatementFamilyPositionsDigest, :t}},
+        {200, {ExAxos.Schema.StatementFamilyPositionsDigest, :t}},
         {401, :null},
         {403, :null},
         {404, :null}
@@ -73,7 +73,7 @@ defmodule ExAxos.AccountPositionsAPI do
 
   """
   @spec view_positions_detail_v1_using_get(String.t(), keyword) ::
-          {:ok, ExAxos.AccountPositionDigest.t()} | :error
+          {:ok, ExAxos.Schema.AccountPositionDigest.t()} | :error
   def view_positions_detail_v1_using_get(accountNumber, opts \\ []) do
     client = opts[:client] || @default_client
     query = Keyword.take(opts, [:asOfDate])
@@ -85,7 +85,7 @@ defmodule ExAxos.AccountPositionsAPI do
       method: :get,
       query: query,
       response: [
-        {200, {ExAxos.AccountPositionDigest, :t}},
+        {200, {ExAxos.Schema.AccountPositionDigest, :t}},
         {401, :null},
         {403, :null},
         {404, :null}

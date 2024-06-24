@@ -11,7 +11,7 @@ defmodule ExAxos.BeneficiaryAPI do
   Retrieve detailed information that pertains to the beneficiary specified.
   """
   @spec do_find_beneficiary_version1_using_get(String.t(), keyword) ::
-          {:ok, ExAxos.BeneficiarySearchResult.t()} | :error
+          {:ok, ExAxos.Schema.BeneficiarySearchResult.t()} | :error
   def do_find_beneficiary_version1_using_get(beneficiaryId, opts \\ []) do
     client = opts[:client] || @default_client
 
@@ -21,7 +21,7 @@ defmodule ExAxos.BeneficiaryAPI do
       url: "/rest/beneficiary/v1/beneficiary/#{beneficiaryId}",
       method: :get,
       response: [
-        {200, {ExAxos.BeneficiarySearchResult, :t}},
+        {200, {ExAxos.Schema.BeneficiarySearchResult, :t}},
         {401, :null},
         {403, :null},
         {404, :null}
@@ -41,7 +41,7 @@ defmodule ExAxos.BeneficiaryAPI do
 
   """
   @spec do_search_for_beneficiary_version1_using_get(keyword) ::
-          {:ok, ExAxos.BeneficiarySearchResult.t()} | :error
+          {:ok, ExAxos.Schema.BeneficiarySearchResult.t()} | :error
   def do_search_for_beneficiary_version1_using_get(opts \\ []) do
     client = opts[:client] || @default_client
     query = Keyword.take(opts, [:search])
@@ -53,7 +53,7 @@ defmodule ExAxos.BeneficiaryAPI do
       method: :get,
       query: query,
       response: [
-        {200, {ExAxos.BeneficiarySearchResult, :t}},
+        {200, {ExAxos.Schema.BeneficiarySearchResult, :t}},
         {401, :null},
         {403, :null},
         {404, :null}

@@ -11,7 +11,7 @@ defmodule ExAxos.BulletinsAPI do
   Retrieve a list of bulletins
   """
   @spec get_all_bulletins_using_get(keyword) ::
-          {:ok, ExAxos.BulletinsResponseResultDigest.t()} | :error
+          {:ok, ExAxos.Schema.BulletinsResponseResultDigest.t()} | :error
   def get_all_bulletins_using_get(opts \\ []) do
     client = opts[:client] || @default_client
 
@@ -21,7 +21,7 @@ defmodule ExAxos.BulletinsAPI do
       url: "/rest/bulletin/v1/bulletins",
       method: :get,
       response: [
-        {200, {ExAxos.BulletinsResponseResultDigest, :t}},
+        {200, {ExAxos.Schema.BulletinsResponseResultDigest, :t}},
         {401, :null},
         {403, :null},
         {404, :null}
@@ -36,7 +36,7 @@ defmodule ExAxos.BulletinsAPI do
   Retrieve a specific bulletin
   """
   @spec get_bulletin_using_get(String.t(), keyword) ::
-          {:ok, ExAxos.BulletinResponseResultDigest.t()} | :error
+          {:ok, ExAxos.Schema.BulletinResponseResultDigest.t()} | :error
   def get_bulletin_using_get(bulletinId, opts \\ []) do
     client = opts[:client] || @default_client
 
@@ -46,7 +46,7 @@ defmodule ExAxos.BulletinsAPI do
       url: "/rest/bulletin/v1/bulletin/#{bulletinId}",
       method: :get,
       response: [
-        {200, {ExAxos.BulletinResponseResultDigest, :t}},
+        {200, {ExAxos.Schema.BulletinResponseResultDigest, :t}},
         {401, :null},
         {403, :null},
         {404, :null}
@@ -61,7 +61,7 @@ defmodule ExAxos.BulletinsAPI do
   Remove a bulletin
   """
   @spec remove_bulletin_using_get(String.t(), keyword) ::
-          {:ok, ExAxos.RestResultDigest.t()} | :error
+          {:ok, ExAxos.Schema.RestResultDigest.t()} | :error
   def remove_bulletin_using_get(bulletinId, opts \\ []) do
     client = opts[:client] || @default_client
 
@@ -70,7 +70,12 @@ defmodule ExAxos.BulletinsAPI do
       call: {ExAxos.BulletinsAPI, :remove_bulletin_using_get},
       url: "/rest/bulletin/v1/removeBulletin/#{bulletinId}",
       method: :get,
-      response: [{200, {ExAxos.RestResultDigest, :t}}, {401, :null}, {403, :null}, {404, :null}],
+      response: [
+        {200, {ExAxos.Schema.RestResultDigest, :t}},
+        {401, :null},
+        {403, :null},
+        {404, :null}
+      ],
       opts: opts
     })
   end

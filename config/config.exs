@@ -6,11 +6,12 @@ config :oapi_generator,
       base_module: ExAxos,
       location: "lib/",
       operation_subdirectory: "operations/",
-      schema_subdirectory: "schemas/"
+      schema_subdirectory: "/"
     ],
     ignore: [
       "/rest/account/v1/form/{accountNumber}/{formCode}",
       "/rest/account/v1/form/{accountNumber}/{formCode}/{actionId}",
       "/rest/aggInvestor/v1/config/{id}"
-    ]
+    ],
+    processor: ExAxos.Processor
   ]

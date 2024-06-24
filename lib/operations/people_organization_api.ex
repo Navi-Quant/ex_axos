@@ -17,7 +17,7 @@ defmodule ExAxos.PeopleOrganizationAPI do
           String.t(),
           String.t(),
           keyword
-        ) :: {:ok, ExAxos.RequestStatus.t()} | :error
+        ) :: {:ok, ExAxos.Schema.RequestStatus.t()} | :error
   def update_person_organizations_using_get(
         advisorId,
         personId,
@@ -39,7 +39,12 @@ defmodule ExAxos.PeopleOrganizationAPI do
       call: {ExAxos.PeopleOrganizationAPI, :update_person_organizations_using_get},
       url: "/rest/role/update/#{advisorId}/#{tenantId}/#{userType}/#{userId}/#{personId}",
       method: :get,
-      response: [{200, {ExAxos.RequestStatus, :t}}, {401, :null}, {403, :null}, {404, :null}],
+      response: [
+        {200, {ExAxos.Schema.RequestStatus, :t}},
+        {401, :null},
+        {403, :null},
+        {404, :null}
+      ],
       opts: opts
     })
   end

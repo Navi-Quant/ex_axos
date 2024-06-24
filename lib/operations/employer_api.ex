@@ -11,7 +11,7 @@ defmodule ExAxos.EmployerAPI do
   Retrieve a list of Employers for the RIA.
   """
   @spec fetch_employers_v1_using_get(keyword) ::
-          {:ok, ExAxos.EmployerSearchResultDigest.t()} | :error
+          {:ok, ExAxos.Schema.EmployerSearchResultDigest.t()} | :error
   def fetch_employers_v1_using_get(opts \\ []) do
     client = opts[:client] || @default_client
 
@@ -21,7 +21,7 @@ defmodule ExAxos.EmployerAPI do
       url: "/rest/employer/v1/employers",
       method: :get,
       response: [
-        {200, {ExAxos.EmployerSearchResultDigest, :t}},
+        {200, {ExAxos.Schema.EmployerSearchResultDigest, :t}},
         {401, :null},
         {403, :null},
         {404, :null}

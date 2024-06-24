@@ -10,8 +10,10 @@ defmodule ExAxos.RepresentativeMaintenanceAPI do
 
   Create a new representative record
   """
-  @spec create_representative_using_post(ExAxos.RepresentativeGenerationDigest.t(), keyword) ::
-          {:ok, ExAxos.RepresentativeCreateResultDigest.t()} | :error
+  @spec create_representative_using_post(
+          ExAxos.Schema.RepresentativeGenerationDigest.t(),
+          keyword
+        ) :: {:ok, ExAxos.Schema.RepresentativeCreateResultDigest.t()} | :error
   def create_representative_using_post(body, opts \\ []) do
     client = opts[:client] || @default_client
 
@@ -21,9 +23,9 @@ defmodule ExAxos.RepresentativeMaintenanceAPI do
       url: "/rest/representative/v1/create",
       body: body,
       method: :post,
-      request: [{"application/json", {ExAxos.RepresentativeGenerationDigest, :t}}],
+      request: [{"application/json", {ExAxos.Schema.RepresentativeGenerationDigest, :t}}],
       response: [
-        {200, {ExAxos.RepresentativeCreateResultDigest, :t}},
+        {200, {ExAxos.Schema.RepresentativeCreateResultDigest, :t}},
         {201, :null},
         {401, :null},
         {403, :null},

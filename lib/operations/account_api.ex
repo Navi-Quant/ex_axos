@@ -11,7 +11,7 @@ defmodule ExAxos.AccountAPI do
   Retrieve detailed information that pertains to the account specified.
   """
   @spec do_account_lookup_v1_using_get(String.t(), keyword) ::
-          {:ok, ExAxos.AccountBasicDigest.t()} | :error
+          {:ok, ExAxos.Schema.AccountBasicDigest.t()} | :error
   def do_account_lookup_v1_using_get(accountNumber, opts \\ []) do
     client = opts[:client] || @default_client
 
@@ -20,7 +20,12 @@ defmodule ExAxos.AccountAPI do
       call: {ExAxos.AccountAPI, :do_account_lookup_v1_using_get},
       url: "/rest/account/v1/account/#{accountNumber}",
       method: :get,
-      response: [{200, {ExAxos.AccountBasicDigest, :t}}, {401, :null}, {403, :null}, {404, :null}],
+      response: [
+        {200, {ExAxos.Schema.AccountBasicDigest, :t}},
+        {401, :null},
+        {403, :null},
+        {404, :null}
+      ],
       opts: opts
     })
   end
@@ -39,7 +44,8 @@ defmodule ExAxos.AccountAPI do
     * `search`: search
 
   """
-  @spec do_account_search_v1_using_get(keyword) :: {:ok, ExAxos.AccountResultDigest.t()} | :error
+  @spec do_account_search_v1_using_get(keyword) ::
+          {:ok, ExAxos.Schema.AccountResultDigest.t()} | :error
   def do_account_search_v1_using_get(opts \\ []) do
     client = opts[:client] || @default_client
 
@@ -53,7 +59,7 @@ defmodule ExAxos.AccountAPI do
       method: :get,
       query: query,
       response: [
-        {200, {ExAxos.AccountResultDigest, :t}},
+        {200, {ExAxos.Schema.AccountResultDigest, :t}},
         {401, :null},
         {403, :null},
         {404, :null}
@@ -74,7 +80,7 @@ defmodule ExAxos.AccountAPI do
 
   """
   @spec retrieve_account_summaries_using_get(keyword) ::
-          {:ok, ExAxos.AccountSummariesResultDigest.t()} | :error
+          {:ok, ExAxos.Schema.AccountSummariesResultDigest.t()} | :error
   def retrieve_account_summaries_using_get(opts \\ []) do
     client = opts[:client] || @default_client
     query = Keyword.take(opts, [:limit, :offset])
@@ -86,7 +92,7 @@ defmodule ExAxos.AccountAPI do
       method: :get,
       query: query,
       response: [
-        {200, {ExAxos.AccountSummariesResultDigest, :t}},
+        {200, {ExAxos.Schema.AccountSummariesResultDigest, :t}},
         {401, :null},
         {403, :null},
         {404, :null}
@@ -100,8 +106,8 @@ defmodule ExAxos.AccountAPI do
 
   Edit Account owners based on account number
   """
-  @spec update_account_owners_using_put(String.t(), ExAxos.AccountOwner.t(), keyword) ::
-          {:ok, ExAxos.AccountBasicDigest.t()} | :error
+  @spec update_account_owners_using_put(String.t(), ExAxos.Schema.AccountOwner.t(), keyword) ::
+          {:ok, ExAxos.Schema.AccountBasicDigest.t()} | :error
   def update_account_owners_using_put(accountNumber, body, opts \\ []) do
     client = opts[:client] || @default_client
 
@@ -111,9 +117,9 @@ defmodule ExAxos.AccountAPI do
       url: "/rest/account/v1/accountowners/edit/#{accountNumber}",
       body: body,
       method: :put,
-      request: [{"application/json", {ExAxos.AccountOwner, :t}}],
+      request: [{"application/json", {ExAxos.Schema.AccountOwner, :t}}],
       response: [
-        {200, {ExAxos.AccountBasicDigest, :t}},
+        {200, {ExAxos.Schema.AccountBasicDigest, :t}},
         {201, :null},
         {401, :null},
         {403, :null},

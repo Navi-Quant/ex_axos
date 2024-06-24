@@ -11,7 +11,7 @@ defmodule ExAxos.AccountTaxFormAPI do
   Returns a list of all available pdf tax forms
   """
   @spec get_tax_forms_by_account_using_get(String.t(), keyword) ::
-          {:ok, ExAxos.AccountTaxFormsResultDigest.t()} | :error
+          {:ok, ExAxos.Schema.AccountTaxFormsResultDigest.t()} | :error
   def get_tax_forms_by_account_using_get(accountNumber, opts \\ []) do
     client = opts[:client] || @default_client
 
@@ -21,7 +21,7 @@ defmodule ExAxos.AccountTaxFormAPI do
       url: "/rest/account/v1/taxforms/#{accountNumber}",
       method: :get,
       response: [
-        {200, {ExAxos.AccountTaxFormsResultDigest, :t}},
+        {200, {ExAxos.Schema.AccountTaxFormsResultDigest, :t}},
         {401, :null},
         {403, :null},
         {404, :null}
@@ -36,7 +36,7 @@ defmodule ExAxos.AccountTaxFormAPI do
   Retrieves a tax form file pdf as binary array
   """
   @spec retrieve_tax_form_using_get(String.t(), String.t(), String.t(), String.t(), keyword) ::
-          {:ok, ExAxos.AccountTaxFormDocumentResultDigest.t()} | :error
+          {:ok, ExAxos.Schema.AccountTaxFormDocumentResultDigest.t()} | :error
   def retrieve_tax_form_using_get(accountNumber, formType, hostKey, taxYear, opts \\ []) do
     client = opts[:client] || @default_client
 
@@ -46,7 +46,7 @@ defmodule ExAxos.AccountTaxFormAPI do
       url: "/rest/account/v1/taxform/#{accountNumber}/#{formType}/#{taxYear}/#{hostKey}",
       method: :get,
       response: [
-        {200, {ExAxos.AccountTaxFormDocumentResultDigest, :t}},
+        {200, {ExAxos.Schema.AccountTaxFormDocumentResultDigest, :t}},
         {401, :null},
         {403, :null},
         {404, :null}

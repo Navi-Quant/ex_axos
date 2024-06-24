@@ -18,7 +18,7 @@ defmodule ExAxos.RepresentativesAPI do
 
   """
   @spec list_representatives_using_get(keyword) ::
-          {:ok, ExAxos.RepresentativesResultDigest.t()} | :error
+          {:ok, ExAxos.Schema.RepresentativesResultDigest.t()} | :error
   def list_representatives_using_get(opts \\ []) do
     client = opts[:client] || @default_client
     query = Keyword.take(opts, [:limit, :offset, :sortBy])
@@ -30,7 +30,7 @@ defmodule ExAxos.RepresentativesAPI do
       method: :get,
       query: query,
       response: [
-        {200, {ExAxos.RepresentativesResultDigest, :t}},
+        {200, {ExAxos.Schema.RepresentativesResultDigest, :t}},
         {401, :null},
         {403, :null},
         {404, :null}
