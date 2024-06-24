@@ -10,14 +10,14 @@ defmodule ExAxos.Contribution do
 
   Provide a request to create a new contribution
   """
-  @spec create_contribution_using_post(ExAxos.Schema.ContributionDigestRest.t(), keyword) ::
+  @spec create_contribution(ExAxos.Schema.ContributionDigestRest.t(), keyword) ::
           {:ok, ExAxos.Schema.ContributionResponseResultDigest.t()} | :error
-  def create_contribution_using_post(body, opts \\ []) do
+  def create_contribution(body, opts \\ []) do
     client = opts[:client] || @default_client
 
     client.request(%{
       args: [body: body],
-      call: {ExAxos.Contribution, :create_contribution_using_post},
+      call: {ExAxos.Contribution, :create_contribution},
       url: "/rest/account/v1/contribution/create",
       body: body,
       method: :post,
@@ -40,14 +40,14 @@ defmodule ExAxos.Contribution do
 
   Provide a request to edit a contribution
   """
-  @spec edit_contribution_using_post(ExAxos.Schema.ContributionDigestRest.t(), keyword) ::
+  @spec edit_contribution(ExAxos.Schema.ContributionDigestRest.t(), keyword) ::
           {:ok, ExAxos.Schema.ContributionResponseResultDigest.t()} | :error
-  def edit_contribution_using_post(body, opts \\ []) do
+  def edit_contribution(body, opts \\ []) do
     client = opts[:client] || @default_client
 
     client.request(%{
       args: [body: body],
-      call: {ExAxos.Contribution, :edit_contribution_using_post},
+      call: {ExAxos.Contribution, :edit_contribution},
       url: "/rest/account/v1/contribution/edit",
       body: body,
       method: :post,
@@ -68,14 +68,14 @@ defmodule ExAxos.Contribution do
 
   You must be associated to the account
   """
-  @spec get_contributions_using_get(String.t(), keyword) ::
+  @spec get_list_of_account_contributions(String.t(), keyword) ::
           {:ok, ExAxos.Schema.ContributionResponseResultDigest.t()} | :error
-  def get_contributions_using_get(accountId, opts \\ []) do
+  def get_list_of_account_contributions(accountId, opts \\ []) do
     client = opts[:client] || @default_client
 
     client.request(%{
       args: [accountId: accountId],
-      call: {ExAxos.Contribution, :get_contributions_using_get},
+      call: {ExAxos.Contribution, :get_list_of_account_contributions},
       url: "/rest/account/v1/contributions/#{accountId}",
       method: :get,
       response: [
@@ -93,14 +93,14 @@ defmodule ExAxos.Contribution do
 
   Initiate a request to suspend a contribution
   """
-  @spec suspend_contribution_using_put(ExAxos.Schema.ContributionSuspendRequest.t(), keyword) ::
+  @spec suspend_contribution(ExAxos.Schema.ContributionSuspendRequest.t(), keyword) ::
           {:ok, ExAxos.Schema.ContributionResponseResultDigest.t()} | :error
-  def suspend_contribution_using_put(body, opts \\ []) do
+  def suspend_contribution(body, opts \\ []) do
     client = opts[:client] || @default_client
 
     client.request(%{
       args: [body: body],
-      call: {ExAxos.Contribution, :suspend_contribution_using_put},
+      call: {ExAxos.Contribution, :suspend_contribution},
       url: "/rest/account/v1/contribution/suspend",
       body: body,
       method: :put,

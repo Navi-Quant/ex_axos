@@ -8,14 +8,14 @@ defmodule ExAxos.AccountRmd do
   @doc """
   retrieveRmdSummary
   """
-  @spec retrieve_rmd_summary_using_get(integer, keyword) ::
+  @spec retrieve_rmd_summary(integer, keyword) ::
           {:ok, ExAxos.Schema.AccountRmdSummaryDigest.t()} | :error
-  def retrieve_rmd_summary_using_get(accountNumber, opts \\ []) do
+  def retrieve_rmd_summary(accountNumber, opts \\ []) do
     client = opts[:client] || @default_client
 
     client.request(%{
       args: [accountNumber: accountNumber],
-      call: {ExAxos.AccountRmd, :retrieve_rmd_summary_using_get},
+      call: {ExAxos.AccountRmd, :retrieve_rmd_summary},
       url: "/rest/account/v1/rmd/#{accountNumber}",
       method: :get,
       response: [

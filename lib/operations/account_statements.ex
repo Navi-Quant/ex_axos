@@ -10,14 +10,14 @@ defmodule ExAxos.AccountStatements do
 
   Retrieves all of the available statements as a json AccountStatementsResultDigest class object. 
   """
-  @spec get_statements_by_account_using_get(String.t(), keyword) ::
+  @spec get_statements_by_account(String.t(), keyword) ::
           {:ok, ExAxos.Schema.AccountStatementsResultDigest.t()} | :error
-  def get_statements_by_account_using_get(accountNumber, opts \\ []) do
+  def get_statements_by_account(accountNumber, opts \\ []) do
     client = opts[:client] || @default_client
 
     client.request(%{
       args: [accountNumber: accountNumber],
-      call: {ExAxos.AccountStatements, :get_statements_by_account_using_get},
+      call: {ExAxos.AccountStatements, :get_statements_by_account},
       url: "/rest/account/v1/statements/#{accountNumber}",
       method: :get,
       response: [
@@ -35,14 +35,14 @@ defmodule ExAxos.AccountStatements do
 
   Retrieves a requested statement pdf within a AccountStatementDocumentResultDigest class object containing a binary data field.
   """
-  @spec retrieve_statement_using_get(String.t(), String.t(), keyword) ::
+  @spec retrieve_statement(String.t(), String.t(), keyword) ::
           {:ok, ExAxos.Schema.AccountStatementDocumentResultDigest.t()} | :error
-  def retrieve_statement_using_get(accountNumber, statementdate, opts \\ []) do
+  def retrieve_statement(accountNumber, statementdate, opts \\ []) do
     client = opts[:client] || @default_client
 
     client.request(%{
       args: [accountNumber: accountNumber, statementdate: statementdate],
-      call: {ExAxos.AccountStatements, :retrieve_statement_using_get},
+      call: {ExAxos.AccountStatements, :retrieve_statement},
       url: "/rest/account/v1/statement/#{accountNumber}/#{statementdate}",
       method: :get,
       response: [

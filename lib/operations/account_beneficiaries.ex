@@ -10,14 +10,14 @@ defmodule ExAxos.AccountBeneficiaries do
 
   The account beneficiaries api returns the current beneficiaries for an account.
   """
-  @spec view_beneficiaries_by_account_v1_using_get(String.t(), keyword) ::
+  @spec view_beneficiaries_by_account(String.t(), keyword) ::
           {:ok, ExAxos.Schema.AccountBeneficiariesResultDigest.t()} | :error
-  def view_beneficiaries_by_account_v1_using_get(accountNumber, opts \\ []) do
+  def view_beneficiaries_by_account(accountNumber, opts \\ []) do
     client = opts[:client] || @default_client
 
     client.request(%{
       args: [accountNumber: accountNumber],
-      call: {ExAxos.AccountBeneficiaries, :view_beneficiaries_by_account_v1_using_get},
+      call: {ExAxos.AccountBeneficiaries, :view_beneficiaries_by_account},
       url: "/rest/account/v1/beneficiariesByAccount/#{accountNumber}",
       method: :get,
       response: [

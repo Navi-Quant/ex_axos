@@ -17,15 +17,15 @@ defmodule ExAxos.Representatives do
     * `sortBy`: sortBy
 
   """
-  @spec list_representatives_using_get(keyword) ::
+  @spec get_representatives(keyword) ::
           {:ok, ExAxos.Schema.RepresentativesResultDigest.t()} | :error
-  def list_representatives_using_get(opts \\ []) do
+  def get_representatives(opts \\ []) do
     client = opts[:client] || @default_client
     query = Keyword.take(opts, [:limit, :offset, :sortBy])
 
     client.request(%{
       args: [],
-      call: {ExAxos.Representatives, :list_representatives_using_get},
+      call: {ExAxos.Representatives, :get_representatives},
       url: "/rest/representative/v1/representatives",
       method: :get,
       query: query,

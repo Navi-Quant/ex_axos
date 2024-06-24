@@ -10,16 +10,14 @@ defmodule ExAxos.RepresentativeMaintenance do
 
   Create a new representative record
   """
-  @spec create_representative_using_post(
-          ExAxos.Schema.RepresentativeGenerationDigest.t(),
-          keyword
-        ) :: {:ok, ExAxos.Schema.RepresentativeCreateResultDigest.t()} | :error
-  def create_representative_using_post(body, opts \\ []) do
+  @spec create_representative(ExAxos.Schema.RepresentativeGenerationDigest.t(), keyword) ::
+          {:ok, ExAxos.Schema.RepresentativeCreateResultDigest.t()} | :error
+  def create_representative(body, opts \\ []) do
     client = opts[:client] || @default_client
 
     client.request(%{
       args: [body: body],
-      call: {ExAxos.RepresentativeMaintenance, :create_representative_using_post},
+      call: {ExAxos.RepresentativeMaintenance, :create_representative},
       url: "/rest/representative/v1/create",
       body: body,
       method: :post,

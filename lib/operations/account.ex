@@ -10,14 +10,14 @@ defmodule ExAxos.Account do
 
   Retrieve detailed information that pertains to the account specified.
   """
-  @spec do_account_lookup_v1_using_get(String.t(), keyword) ::
+  @spec account_lookup(String.t(), keyword) ::
           {:ok, ExAxos.Schema.AccountBasicDigest.t()} | :error
-  def do_account_lookup_v1_using_get(accountNumber, opts \\ []) do
+  def account_lookup(accountNumber, opts \\ []) do
     client = opts[:client] || @default_client
 
     client.request(%{
       args: [accountNumber: accountNumber],
-      call: {ExAxos.Account, :do_account_lookup_v1_using_get},
+      call: {ExAxos.Account, :account_lookup},
       url: "/rest/account/v1/account/#{accountNumber}",
       method: :get,
       response: [
@@ -44,9 +44,8 @@ defmodule ExAxos.Account do
     * `search`: search
 
   """
-  @spec do_account_search_v1_using_get(keyword) ::
-          {:ok, ExAxos.Schema.AccountResultDigest.t()} | :error
-  def do_account_search_v1_using_get(opts \\ []) do
+  @spec account_search(keyword) :: {:ok, ExAxos.Schema.AccountResultDigest.t()} | :error
+  def account_search(opts \\ []) do
     client = opts[:client] || @default_client
 
     query =
@@ -54,7 +53,7 @@ defmodule ExAxos.Account do
 
     client.request(%{
       args: [],
-      call: {ExAxos.Account, :do_account_search_v1_using_get},
+      call: {ExAxos.Account, :account_search},
       url: "/rest/account/v1/accounts",
       method: :get,
       query: query,
@@ -79,15 +78,15 @@ defmodule ExAxos.Account do
     * `offset`: offset
 
   """
-  @spec retrieve_account_summaries_using_get(keyword) ::
+  @spec account_summaries(keyword) ::
           {:ok, ExAxos.Schema.AccountSummariesResultDigest.t()} | :error
-  def retrieve_account_summaries_using_get(opts \\ []) do
+  def account_summaries(opts \\ []) do
     client = opts[:client] || @default_client
     query = Keyword.take(opts, [:limit, :offset])
 
     client.request(%{
       args: [],
-      call: {ExAxos.Account, :retrieve_account_summaries_using_get},
+      call: {ExAxos.Account, :account_summaries},
       url: "/rest/account/v1/accountSummaries",
       method: :get,
       query: query,
@@ -106,14 +105,14 @@ defmodule ExAxos.Account do
 
   Edit Account owners based on account number
   """
-  @spec update_account_owners_using_put(String.t(), ExAxos.Schema.AccountOwner.t(), keyword) ::
+  @spec edit_account_owners(String.t(), ExAxos.Schema.AccountOwner.t(), keyword) ::
           {:ok, ExAxos.Schema.AccountBasicDigest.t()} | :error
-  def update_account_owners_using_put(accountNumber, body, opts \\ []) do
+  def edit_account_owners(accountNumber, body, opts \\ []) do
     client = opts[:client] || @default_client
 
     client.request(%{
       args: [accountNumber: accountNumber, body: body],
-      call: {ExAxos.Account, :update_account_owners_using_put},
+      call: {ExAxos.Account, :edit_account_owners},
       url: "/rest/account/v1/accountowners/edit/#{accountNumber}",
       body: body,
       method: :put,

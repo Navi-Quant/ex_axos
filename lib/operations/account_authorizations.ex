@@ -8,14 +8,14 @@ defmodule ExAxos.AccountAuthorizations do
   @doc """
   viewAccountAuthorizations
   """
-  @spec view_account_authorizations_using_get(String.t(), keyword) ::
+  @spec view_account_authorizations(String.t(), keyword) ::
           {:ok, ExAxos.Schema.AccountAuthorizationsResponseDigest.t()} | :error
-  def view_account_authorizations_using_get(accountNumber, opts \\ []) do
+  def view_account_authorizations(accountNumber, opts \\ []) do
     client = opts[:client] || @default_client
 
     client.request(%{
       args: [accountNumber: accountNumber],
-      call: {ExAxos.AccountAuthorizations, :view_account_authorizations_using_get},
+      call: {ExAxos.AccountAuthorizations, :view_account_authorizations},
       url: "/rest/account/v1/accountAuthorizations/#{accountNumber}",
       method: :get,
       response: [

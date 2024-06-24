@@ -8,14 +8,13 @@ defmodule ExAxos.AggInvestorController do
   @doc """
   findConfigById
   """
-  @spec find_config_by_id_using_get(keyword) ::
-          {:ok, ExAxos.Schema.AggHeldAwaysRestResponse.t()} | :error
-  def find_config_by_id_using_get(opts \\ []) do
+  @spec find_config_by_id(keyword) :: {:ok, ExAxos.Schema.AggHeldAwaysRestResponse.t()} | :error
+  def find_config_by_id(opts \\ []) do
     client = opts[:client] || @default_client
 
     client.request(%{
       args: [],
-      call: {ExAxos.AggInvestorController, :find_config_by_id_using_get},
+      call: {ExAxos.AggInvestorController, :find_config_by_id},
       url: "/rest/aggInvestor/v1/heldAways",
       method: :get,
       response: [
@@ -38,15 +37,15 @@ defmodule ExAxos.AggInvestorController do
     * `userId`: userId
 
   """
-  @spec find_config_by_search_using_get(keyword) ::
+  @spec find_config_by_search(keyword) ::
           {:ok, ExAxos.Schema.AggInvestorRestResponse.t()} | :error
-  def find_config_by_search_using_get(opts \\ []) do
+  def find_config_by_search(opts \\ []) do
     client = opts[:client] || @default_client
     query = Keyword.take(opts, [:accountNumber, :guid, :userId])
 
     client.request(%{
       args: [],
-      call: {ExAxos.AggInvestorController, :find_config_by_search_using_get},
+      call: {ExAxos.AggInvestorController, :find_config_by_search},
       url: "/rest/aggInvestor/v1/config/search",
       method: :get,
       query: query,
@@ -63,14 +62,14 @@ defmodule ExAxos.AggInvestorController do
   @doc """
   updateAggInvestor
   """
-  @spec update_agg_investor_using_put(ExAxos.Schema.AggInvestorUpdateRequest.t(), keyword) ::
+  @spec update_agg_investor(ExAxos.Schema.AggInvestorUpdateRequest.t(), keyword) ::
           {:ok, ExAxos.Schema.ResponseEntity.t()} | :error
-  def update_agg_investor_using_put(body, opts \\ []) do
+  def update_agg_investor(body, opts \\ []) do
     client = opts[:client] || @default_client
 
     client.request(%{
       args: [body: body],
-      call: {ExAxos.AggInvestorController, :update_agg_investor_using_put},
+      call: {ExAxos.AggInvestorController, :update_agg_investor},
       url: "/rest/aggInvestor/v1/config",
       body: body,
       method: :put,

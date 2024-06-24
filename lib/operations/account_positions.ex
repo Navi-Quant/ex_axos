@@ -15,15 +15,15 @@ defmodule ExAxos.AccountPositions do
     * `custodyManagement`: custodyManagement
 
   """
-  @spec retrieve_statement_family_positions_v1_using_get(String.t(), keyword) ::
+  @spec retrieve_account_positions_by_statement_family_id(String.t(), keyword) ::
           {:ok, ExAxos.Schema.StatementFamilyAccountPositionsDigest.t()} | :error
-  def retrieve_statement_family_positions_v1_using_get(statementFamilyId, opts \\ []) do
+  def retrieve_account_positions_by_statement_family_id(statementFamilyId, opts \\ []) do
     client = opts[:client] || @default_client
     query = Keyword.take(opts, [:custodyManagement])
 
     client.request(%{
       args: [statementFamilyId: statementFamilyId],
-      call: {ExAxos.AccountPositions, :retrieve_statement_family_positions_v1_using_get},
+      call: {ExAxos.AccountPositions, :retrieve_account_positions_by_statement_family_id},
       url: "/rest/account/v1/statementFamilies/#{statementFamilyId}/accountPositions",
       method: :get,
       query: query,
@@ -42,14 +42,14 @@ defmodule ExAxos.AccountPositions do
 
   Return all accounts and the positons within the account attached to a statement family.
   """
-  @spec view_positions_by_statement_family_id_v1_using_get(String.t(), keyword) ::
+  @spec retrieve_account_positions_by_statement_family_id(String.t(), keyword) ::
           {:ok, ExAxos.Schema.StatementFamilyPositionsDigest.t()} | :error
-  def view_positions_by_statement_family_id_v1_using_get(statementFamilyId, opts \\ []) do
+  def retrieve_account_positions_by_statement_family_id(statementFamilyId, opts \\ []) do
     client = opts[:client] || @default_client
 
     client.request(%{
       args: [statementFamilyId: statementFamilyId],
-      call: {ExAxos.AccountPositions, :view_positions_by_statement_family_id_v1_using_get},
+      call: {ExAxos.AccountPositions, :retrieve_account_positions_by_statement_family_id},
       url: "/rest/account/v1/positionsByStatementFamily/#{statementFamilyId}",
       method: :get,
       response: [
@@ -72,15 +72,15 @@ defmodule ExAxos.AccountPositions do
     * `asOfDate`: asOfDate
 
   """
-  @spec view_positions_detail_v1_using_get(String.t(), keyword) ::
+  @spec view_positions_detail(String.t(), keyword) ::
           {:ok, ExAxos.Schema.AccountPositionDigest.t()} | :error
-  def view_positions_detail_v1_using_get(accountNumber, opts \\ []) do
+  def view_positions_detail(accountNumber, opts \\ []) do
     client = opts[:client] || @default_client
     query = Keyword.take(opts, [:asOfDate])
 
     client.request(%{
       args: [accountNumber: accountNumber],
-      call: {ExAxos.AccountPositions, :view_positions_detail_v1_using_get},
+      call: {ExAxos.AccountPositions, :view_positions_detail},
       url: "/rest/account/v1/positions/#{accountNumber}",
       method: :get,
       query: query,

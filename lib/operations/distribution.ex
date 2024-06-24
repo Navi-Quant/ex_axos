@@ -10,14 +10,14 @@ defmodule ExAxos.Distribution do
 
   List all Systematic Distributions tied to the account
   """
-  @spec get_distributions_using_get(integer, keyword) ::
+  @spec get_list_of_account_distributions(integer, keyword) ::
           {:ok, ExAxos.Schema.DistributionResponseResultDigest.t()} | :error
-  def get_distributions_using_get(accountId, opts \\ []) do
+  def get_list_of_account_distributions(accountId, opts \\ []) do
     client = opts[:client] || @default_client
 
     client.request(%{
       args: [accountId: accountId],
-      call: {ExAxos.Distribution, :get_distributions_using_get},
+      call: {ExAxos.Distribution, :get_list_of_account_distributions},
       url: "/rest/account/v1/distributions/#{accountId}",
       method: :get,
       response: [

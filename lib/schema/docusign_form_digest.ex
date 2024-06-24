@@ -53,8 +53,7 @@ defmodule ExAxos.Schema.DocusignFormDigest do
       required: :boolean,
       selected: :boolean,
       uiName: {:string, :generic},
-      validationState:
-        {:enum, ["VALID", "REQUIRED_VALID", "REQUIRED_INVALID", "INVALID", "DISABLED"]}
+      validationState: {:enum, ["VALID", "REQUIRED_VALID", "REQUIRED_INVALID", "INVALID", "DISABLED"]}
     ]
   end
 end

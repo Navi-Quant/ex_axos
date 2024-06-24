@@ -8,14 +8,16 @@ defmodule ExAxos.OneTimeContributions do
   @doc """
   Create a One-Time ACH Contribution for an account
   """
-  @spec ach_using_post(ExAxos.Schema.ContributionAchRequest.t(), keyword) ::
-          {:ok, ExAxos.Schema.AutoResponseDigest.t()} | :error
-  def ach_using_post(body, opts \\ []) do
+  @spec create_one_time_ach_contribution_for_account(
+          ExAxos.Schema.ContributionAchRequest.t(),
+          keyword
+        ) :: {:ok, ExAxos.Schema.AutoResponseDigest.t()} | :error
+  def create_one_time_ach_contribution_for_account(body, opts \\ []) do
     client = opts[:client] || @default_client
 
     client.request(%{
       args: [body: body],
-      call: {ExAxos.OneTimeContributions, :ach_using_post},
+      call: {ExAxos.OneTimeContributions, :create_one_time_ach_contribution_for_account},
       url: "/rest/oneTimeContribution/v1/ach",
       body: body,
       method: :post,
@@ -36,14 +38,16 @@ defmodule ExAxos.OneTimeContributions do
 
   Sending the same values several times will create additional entries for each request
   """
-  @spec create_using_post(ExAxos.Schema.ContributionDigestRest.t(), keyword) ::
-          {:ok, ExAxos.Schema.ContributionResponseResultDigest.t()} | :error
-  def create_using_post(body, opts \\ []) do
+  @spec create_one_time_contribution_for_account(
+          ExAxos.Schema.ContributionDigestRest.t(),
+          keyword
+        ) :: {:ok, ExAxos.Schema.ContributionResponseResultDigest.t()} | :error
+  def create_one_time_contribution_for_account(body, opts \\ []) do
     client = opts[:client] || @default_client
 
     client.request(%{
       args: [body: body],
-      call: {ExAxos.OneTimeContributions, :create_using_post},
+      call: {ExAxos.OneTimeContributions, :create_one_time_contribution_for_account},
       url: "/rest/oneTimeContribution/v1/create",
       body: body,
       method: :post,
@@ -64,14 +68,14 @@ defmodule ExAxos.OneTimeContributions do
 
   Retrieve a list of contributions
   """
-  @spec list_all_for_account_using_get(integer, keyword) ::
+  @spec get_one_time_contributions_for_account(integer, keyword) ::
           {:ok, ExAxos.Schema.ContributionResponseResultDigest.t()} | :error
-  def list_all_for_account_using_get(accountId, opts \\ []) do
+  def get_one_time_contributions_for_account(accountId, opts \\ []) do
     client = opts[:client] || @default_client
 
     client.request(%{
       args: [accountId: accountId],
-      call: {ExAxos.OneTimeContributions, :list_all_for_account_using_get},
+      call: {ExAxos.OneTimeContributions, :get_one_time_contributions_for_account},
       url: "/rest/oneTimeContribution/v1/listAllForAccount/#{accountId}",
       method: :get,
       response: [

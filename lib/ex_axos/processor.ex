@@ -23,18 +23,21 @@ if Mix.env() == :dev do
     end
 
     def operation_function_name(state, operation_spec) do
-      IO.inspect({operation_spec.summary, summary_to_operation_name(operation_spec.summary)})
-
-      OpenAPI.Processor.Naming.operation_function(state, operation_spec)
+      operation_spec.summary
+      |> summary_to_operation_name()
+      |> String.to_atom()
     end
 
     defp summary_to_operation_name(summary) do
-      # summary
-      # |> String.downcase()
-      # |> String.split(" ")
-      # |> Enum.join("_")
-      summary
-      |> String.split(" ")
+      if String.contains?(summary, " ") do
+        summary
+        |> String.split([" ", "-"])
+        |> Enum.reject(&(&1 in ["a", "an", "the"]))
+        |> Enum.map_join("", &String.capitalize/1)
+        |> Macro.underscore()
+      else
+        Macro.underscore(summary)
+      end
     end
   end
 end

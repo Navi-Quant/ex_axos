@@ -8,14 +8,14 @@ defmodule ExAxos.AccountFirmContacts do
   @doc """
   viewFirmContactsByAccount
   """
-  @spec view_firm_contacts_by_account_using_get(String.t(), keyword) ::
+  @spec view_firm_contacts_by_account(String.t(), keyword) ::
           {:ok, ExAxos.Schema.AccountFirmContactsResponseDigest.t()} | :error
-  def view_firm_contacts_by_account_using_get(accountNumber, opts \\ []) do
+  def view_firm_contacts_by_account(accountNumber, opts \\ []) do
     client = opts[:client] || @default_client
 
     client.request(%{
       args: [accountNumber: accountNumber],
-      call: {ExAxos.AccountFirmContacts, :view_firm_contacts_by_account_using_get},
+      call: {ExAxos.AccountFirmContacts, :view_firm_contacts_by_account},
       url: "/rest/account/v1/firmContacts/#{accountNumber}",
       method: :get,
       response: [

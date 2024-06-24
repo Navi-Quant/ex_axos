@@ -8,14 +8,14 @@ defmodule ExAxos.SalesforceCase do
   @doc """
   caseCreate
   """
-  @spec case_create_using_post(ExAxos.Schema.SalesforceCaseRequest.t(), keyword) ::
+  @spec case_create(ExAxos.Schema.SalesforceCaseRequest.t(), keyword) ::
           {:ok, ExAxos.Schema.SalesforceResponse.t()} | :error
-  def case_create_using_post(body, opts \\ []) do
+  def case_create(body, opts \\ []) do
     client = opts[:client] || @default_client
 
     client.request(%{
       args: [body: body],
-      call: {ExAxos.SalesforceCase, :case_create_using_post},
+      call: {ExAxos.SalesforceCase, :case_create},
       url: "/rest/salesforce/v1/case/create",
       body: body,
       method: :post,

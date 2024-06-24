@@ -15,15 +15,14 @@ defmodule ExAxos.Firm do
     * `search`: search
 
   """
-  @spec fetch_firms_v1_using_get(keyword) ::
-          {:ok, ExAxos.Schema.FirmSearchResultDigest.t()} | :error
-  def fetch_firms_v1_using_get(opts \\ []) do
+  @spec fetch_firms(keyword) :: {:ok, ExAxos.Schema.FirmSearchResultDigest.t()} | :error
+  def fetch_firms(opts \\ []) do
     client = opts[:client] || @default_client
     query = Keyword.take(opts, [:search])
 
     client.request(%{
       args: [],
-      call: {ExAxos.Firm, :fetch_firms_v1_using_get},
+      call: {ExAxos.Firm, :fetch_firms},
       url: "/rest/firm/v1/firms",
       method: :get,
       query: query,
@@ -42,14 +41,14 @@ defmodule ExAxos.Firm do
 
   Retrieve detailed information that pertains to the specified firm.
   """
-  @spec firm_lookup_v1_using_get(String.t(), keyword) ::
+  @spec firm_lookup(String.t(), keyword) ::
           {:ok, ExAxos.Schema.FirmSearchResultDigest.t()} | :error
-  def firm_lookup_v1_using_get(firmId, opts \\ []) do
+  def firm_lookup(firmId, opts \\ []) do
     client = opts[:client] || @default_client
 
     client.request(%{
       args: [firmId: firmId],
-      call: {ExAxos.Firm, :firm_lookup_v1_using_get},
+      call: {ExAxos.Firm, :firm_lookup},
       url: "/rest/firm/v1/firm/#{firmId}",
       method: :get,
       response: [

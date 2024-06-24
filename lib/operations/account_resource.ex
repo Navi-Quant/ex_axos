@@ -8,13 +8,13 @@ defmodule ExAxos.AccountResource do
   @doc """
   retrieveResource
   """
-  @spec retrieve_resource_using_get(integer, String.t(), keyword) :: {:ok, String.t()} | :error
-  def retrieve_resource_using_get(accountNumber, key, opts \\ []) do
+  @spec retrieve_resource(integer, String.t(), keyword) :: {:ok, String.t()} | :error
+  def retrieve_resource(accountNumber, key, opts \\ []) do
     client = opts[:client] || @default_client
 
     client.request(%{
       args: [accountNumber: accountNumber, key: key],
-      call: {ExAxos.AccountResource, :retrieve_resource_using_get},
+      call: {ExAxos.AccountResource, :retrieve_resource},
       url: "/rest/account/v1/resource/#{accountNumber}/#{key}",
       method: :get,
       response: [{200, {:string, :generic}}, {401, :null}, {403, :null}, {404, :null}],

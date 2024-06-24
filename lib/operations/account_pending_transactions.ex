@@ -10,14 +10,14 @@ defmodule ExAxos.AccountPendingTransactions do
 
   The account pending transactions api returns the transactions that are currently pending for the account.
   """
-  @spec view_pending_transactions_v1_using_get(String.t(), keyword) ::
+  @spec view_pending_transactions(String.t(), keyword) ::
           {:ok, ExAxos.Schema.AccountPendingTransactionResultDigest.t()} | :error
-  def view_pending_transactions_v1_using_get(accountNumber, opts \\ []) do
+  def view_pending_transactions(accountNumber, opts \\ []) do
     client = opts[:client] || @default_client
 
     client.request(%{
       args: [accountNumber: accountNumber],
-      call: {ExAxos.AccountPendingTransactions, :view_pending_transactions_v1_using_get},
+      call: {ExAxos.AccountPendingTransactions, :view_pending_transactions},
       url: "/rest/account/v1/pendingTransactions/#{accountNumber}",
       method: :get,
       response: [

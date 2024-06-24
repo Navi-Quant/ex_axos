@@ -10,14 +10,14 @@ defmodule ExAxos.AccountBeneficialOwners do
 
   Retrieve beneficial owners for an account.
   """
-  @spec get_beneficial_owners_by_account_using_get(integer, keyword) ::
+  @spec get_beneficial_owners_for_account(integer, keyword) ::
           {:ok, ExAxos.Schema.AccountBeneficialOwnersRestDigest.t()} | :error
-  def get_beneficial_owners_by_account_using_get(accountNumber, opts \\ []) do
+  def get_beneficial_owners_for_account(accountNumber, opts \\ []) do
     client = opts[:client] || @default_client
 
     client.request(%{
       args: [accountNumber: accountNumber],
-      call: {ExAxos.AccountBeneficialOwners, :get_beneficial_owners_by_account_using_get},
+      call: {ExAxos.AccountBeneficialOwners, :get_beneficial_owners_for_account},
       url: "/rest/account/v1/beneficialOwners/#{accountNumber}",
       method: :get,
       response: [
@@ -35,17 +35,17 @@ defmodule ExAxos.AccountBeneficialOwners do
 
   Update Beneficial Owners for existing Advisor Services Account.
   """
-  @spec update_beneficial_owners_using_post(
+  @spec update_beneficial_owners_for_account(
           integer,
           ExAxos.Schema.AccountBeneficialOwnersRestDigest.t(),
           keyword
         ) :: {:ok, ExAxos.Schema.RestResultDigest.t()} | :error
-  def update_beneficial_owners_using_post(accountNumber, body, opts \\ []) do
+  def update_beneficial_owners_for_account(accountNumber, body, opts \\ []) do
     client = opts[:client] || @default_client
 
     client.request(%{
       args: [accountNumber: accountNumber, body: body],
-      call: {ExAxos.AccountBeneficialOwners, :update_beneficial_owners_using_post},
+      call: {ExAxos.AccountBeneficialOwners, :update_beneficial_owners_for_account},
       url: "/rest/account/v1/edit/beneficialOwners/#{accountNumber}",
       body: body,
       method: :post,

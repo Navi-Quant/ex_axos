@@ -10,14 +10,14 @@ defmodule ExAxos.ElectronicSignatureEnvelopeSend do
 
   Resend documents to recipients for an account to be signed electronically
   """
-  @spec resend_envelope_v1_using_put(String.t(), keyword) ::
+  @spec resend_envelope(String.t(), keyword) ::
           {:ok, ExAxos.Schema.ElectronicSignatureSendStatusDigest.t()} | :error
-  def resend_envelope_v1_using_put(envelopeId, opts \\ []) do
+  def resend_envelope(envelopeId, opts \\ []) do
     client = opts[:client] || @default_client
 
     client.request(%{
       args: [envelopeId: envelopeId],
-      call: {ExAxos.ElectronicSignatureEnvelopeSend, :resend_envelope_v1_using_put},
+      call: {ExAxos.ElectronicSignatureEnvelopeSend, :resend_envelope},
       url: "/rest/esignature/v1/envelope/resend/#{envelopeId}",
       method: :put,
       response: [
@@ -36,14 +36,14 @@ defmodule ExAxos.ElectronicSignatureEnvelopeSend do
 
   Send documents to recipients for an account to be signed electronically.
   """
-  @spec send_envelope_v1_using_post(ExAxos.Schema.ElectronicSignatureEnvelopeDigest.t(), keyword) ::
+  @spec send_envelope(ExAxos.Schema.ElectronicSignatureEnvelopeDigest.t(), keyword) ::
           {:ok, ExAxos.Schema.ElectronicSignatureSendStatusDigest.t()} | :error
-  def send_envelope_v1_using_post(body, opts \\ []) do
+  def send_envelope(body, opts \\ []) do
     client = opts[:client] || @default_client
 
     client.request(%{
       args: [body: body],
-      call: {ExAxos.ElectronicSignatureEnvelopeSend, :send_envelope_v1_using_post},
+      call: {ExAxos.ElectronicSignatureEnvelopeSend, :send_envelope},
       url: "/rest/esignature/v1/envelope/send",
       body: body,
       method: :post,

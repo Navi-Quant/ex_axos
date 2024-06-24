@@ -10,14 +10,14 @@ defmodule ExAxos.ModelAllocation do
 
   Retrieve allocations for a model.
   """
-  @spec view_model_allocation_using_get(String.t(), keyword) ::
+  @spec view_model_allocation(String.t(), keyword) ::
           {:ok, ExAxos.Schema.ModelAllocationDigest.t()} | :error
-  def view_model_allocation_using_get(modelId, opts \\ []) do
+  def view_model_allocation(modelId, opts \\ []) do
     client = opts[:client] || @default_client
 
     client.request(%{
       args: [modelId: modelId],
-      call: {ExAxos.ModelAllocation, :view_model_allocation_using_get},
+      call: {ExAxos.ModelAllocation, :view_model_allocation},
       url: "/rest/model/v1/allocation/#{modelId}",
       method: :get,
       response: [

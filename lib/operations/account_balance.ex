@@ -10,14 +10,14 @@ defmodule ExAxos.AccountBalance do
 
   Retrieve balance that pertains to the account number specified.
   """
-  @spec view_account_balance_using_get(String.t(), keyword) ::
+  @spec account_balances(String.t(), keyword) ::
           {:ok, ExAxos.Schema.AccountBalanceDigest.t()} | :error
-  def view_account_balance_using_get(accountNumber, opts \\ []) do
+  def account_balances(accountNumber, opts \\ []) do
     client = opts[:client] || @default_client
 
     client.request(%{
       args: [accountNumber: accountNumber],
-      call: {ExAxos.AccountBalance, :view_account_balance_using_get},
+      call: {ExAxos.AccountBalance, :account_balances},
       url: "/rest/account/v1/accountBalances/#{accountNumber}",
       method: :get,
       response: [

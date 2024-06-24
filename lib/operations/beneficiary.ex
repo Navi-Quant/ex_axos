@@ -10,14 +10,14 @@ defmodule ExAxos.Beneficiary do
 
   Retrieve detailed information that pertains to the beneficiary specified.
   """
-  @spec do_find_beneficiary_version1_using_get(String.t(), keyword) ::
+  @spec find_beneficiary(String.t(), keyword) ::
           {:ok, ExAxos.Schema.BeneficiarySearchResult.t()} | :error
-  def do_find_beneficiary_version1_using_get(beneficiaryId, opts \\ []) do
+  def find_beneficiary(beneficiaryId, opts \\ []) do
     client = opts[:client] || @default_client
 
     client.request(%{
       args: [beneficiaryId: beneficiaryId],
-      call: {ExAxos.Beneficiary, :do_find_beneficiary_version1_using_get},
+      call: {ExAxos.Beneficiary, :find_beneficiary},
       url: "/rest/beneficiary/v1/beneficiary/#{beneficiaryId}",
       method: :get,
       response: [
@@ -40,15 +40,15 @@ defmodule ExAxos.Beneficiary do
     * `search`: search
 
   """
-  @spec do_search_for_beneficiary_version1_using_get(keyword) ::
+  @spec search_for_beneficiary(keyword) ::
           {:ok, ExAxos.Schema.BeneficiarySearchResult.t()} | :error
-  def do_search_for_beneficiary_version1_using_get(opts \\ []) do
+  def search_for_beneficiary(opts \\ []) do
     client = opts[:client] || @default_client
     query = Keyword.take(opts, [:search])
 
     client.request(%{
       args: [],
-      call: {ExAxos.Beneficiary, :do_search_for_beneficiary_version1_using_get},
+      call: {ExAxos.Beneficiary, :search_for_beneficiary},
       url: "/rest/beneficiary/v1/beneficiaries",
       method: :get,
       query: query,

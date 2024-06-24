@@ -8,14 +8,14 @@ defmodule ExAxos.AccountDeliveryOptions do
   @doc """
   retrieveDeliveryOptionsForAccount
   """
-  @spec retrieve_delivery_options_for_account_using_get(String.t(), keyword) ::
+  @spec retrieve_delivery_options_for_account(String.t(), keyword) ::
           {:ok, ExAxos.Schema.AccountDeliveryOptionsResponseDigest.t()} | :error
-  def retrieve_delivery_options_for_account_using_get(accountNumber, opts \\ []) do
+  def retrieve_delivery_options_for_account(accountNumber, opts \\ []) do
     client = opts[:client] || @default_client
 
     client.request(%{
       args: [accountNumber: accountNumber],
-      call: {ExAxos.AccountDeliveryOptions, :retrieve_delivery_options_for_account_using_get},
+      call: {ExAxos.AccountDeliveryOptions, :retrieve_delivery_options_for_account},
       url: "/rest/account/v1/deliveryOptions/#{accountNumber}",
       method: :get,
       response: [
@@ -31,16 +31,16 @@ defmodule ExAxos.AccountDeliveryOptions do
   @doc """
   updateDeliveryOptionsForAccount
   """
-  @spec update_delivery_options_for_account_using_put(
+  @spec update_delivery_options_for_account(
           ExAxos.Schema.AccountDeliveryOptionsRequest.t(),
           keyword
         ) :: {:ok, ExAxos.Schema.ResponseEntity.t()} | :error
-  def update_delivery_options_for_account_using_put(body, opts \\ []) do
+  def update_delivery_options_for_account(body, opts \\ []) do
     client = opts[:client] || @default_client
 
     client.request(%{
       args: [body: body],
-      call: {ExAxos.AccountDeliveryOptions, :update_delivery_options_for_account_using_put},
+      call: {ExAxos.AccountDeliveryOptions, :update_delivery_options_for_account},
       url: "/rest/account/v1/deliveryOptions",
       body: body,
       method: :put,

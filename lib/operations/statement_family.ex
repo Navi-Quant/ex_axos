@@ -10,14 +10,14 @@ defmodule ExAxos.StatementFamily do
 
   Creates a statement family
   """
-  @spec create_statement_family_using_post(ExAxos.Schema.StatementFamilyEditDigest.t(), keyword) ::
+  @spec create_statement_family(ExAxos.Schema.StatementFamilyEditDigest.t(), keyword) ::
           {:ok, ExAxos.Schema.StatementFamilyResultDigest.t()} | :error
-  def create_statement_family_using_post(body, opts \\ []) do
+  def create_statement_family(body, opts \\ []) do
     client = opts[:client] || @default_client
 
     client.request(%{
       args: [body: body],
-      call: {ExAxos.StatementFamily, :create_statement_family_using_post},
+      call: {ExAxos.StatementFamily, :create_statement_family},
       url: "/rest/statementFamily/v1/create",
       body: body,
       method: :post,
@@ -38,16 +38,14 @@ defmodule ExAxos.StatementFamily do
 
   Edits a statement family
   """
-  @spec edit_statement_family_details_using_post(
-          ExAxos.Schema.StatementFamilyEditDigest.t(),
-          keyword
-        ) :: {:ok, ExAxos.Schema.StatementFamilyResultDigest.t()} | :error
-  def edit_statement_family_details_using_post(body, opts \\ []) do
+  @spec edit_statement_family(ExAxos.Schema.StatementFamilyEditDigest.t(), keyword) ::
+          {:ok, ExAxos.Schema.StatementFamilyResultDigest.t()} | :error
+  def edit_statement_family(body, opts \\ []) do
     client = opts[:client] || @default_client
 
     client.request(%{
       args: [body: body],
-      call: {ExAxos.StatementFamily, :edit_statement_family_details_using_post},
+      call: {ExAxos.StatementFamily, :edit_statement_family},
       url: "/rest/statementFamily/v1/edit/",
       body: body,
       method: :post,
@@ -68,14 +66,14 @@ defmodule ExAxos.StatementFamily do
 
   Retrieves statement family info
   """
-  @spec get_statement_family_details_using_get(String.t(), keyword) ::
+  @spec get_statement_family_details(String.t(), keyword) ::
           {:ok, ExAxos.Schema.StatementFamilyResultDigest.t()} | :error
-  def get_statement_family_details_using_get(statementFamilyId, opts \\ []) do
+  def get_statement_family_details(statementFamilyId, opts \\ []) do
     client = opts[:client] || @default_client
 
     client.request(%{
       args: [statementFamilyId: statementFamilyId],
-      call: {ExAxos.StatementFamily, :get_statement_family_details_using_get},
+      call: {ExAxos.StatementFamily, :get_statement_family_details},
       url: "/rest/account/v1/statementFamily/#{statementFamilyId}",
       method: :get,
       response: [
@@ -93,14 +91,14 @@ defmodule ExAxos.StatementFamily do
 
   Searches for statement families matching search term
   """
-  @spec search_statement_families_using_get(String.t(), keyword) ::
+  @spec search_statement_families(String.t(), keyword) ::
           {:ok, ExAxos.Schema.StatementFamilyResultDigest.t()} | :error
-  def search_statement_families_using_get(statementFamilyName, opts \\ []) do
+  def search_statement_families(statementFamilyName, opts \\ []) do
     client = opts[:client] || @default_client
 
     client.request(%{
       args: [statementFamilyName: statementFamilyName],
-      call: {ExAxos.StatementFamily, :search_statement_families_using_get},
+      call: {ExAxos.StatementFamily, :search_statement_families},
       url: "/rest/account/v1/statementFamily/search/#{statementFamilyName}",
       method: :get,
       response: [

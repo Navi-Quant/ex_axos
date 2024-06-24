@@ -10,14 +10,14 @@ defmodule ExAxos.AccountTrustedContactPerson do
 
   Delete trusted contact person
   """
-  @spec delete_trusted_contact_person_using_delete(integer, keyword) ::
+  @spec delete_trusted_contact_person(integer, keyword) ::
           {:ok, ExAxos.Schema.TrustedContactResponse.t()} | :error
-  def delete_trusted_contact_person_using_delete(accountNumber, opts \\ []) do
+  def delete_trusted_contact_person(accountNumber, opts \\ []) do
     client = opts[:client] || @default_client
 
     client.request(%{
       args: [accountNumber: accountNumber],
-      call: {ExAxos.AccountTrustedContactPerson, :delete_trusted_contact_person_using_delete},
+      call: {ExAxos.AccountTrustedContactPerson, :delete_trusted_contact_person},
       url: "/rest/account/v1/trustedContactPerson/delete/#{accountNumber}",
       method: :delete,
       response: [
@@ -35,14 +35,14 @@ defmodule ExAxos.AccountTrustedContactPerson do
 
   Retrieve trusted contact person related to the account number specified
   """
-  @spec retrieve_trusted_contact_person_using_get(integer, keyword) ::
+  @spec retrieve_trusted_contact_person(integer, keyword) ::
           {:ok, ExAxos.Schema.TrustedContactResponse.t()} | :error
-  def retrieve_trusted_contact_person_using_get(accountNumber, opts \\ []) do
+  def retrieve_trusted_contact_person(accountNumber, opts \\ []) do
     client = opts[:client] || @default_client
 
     client.request(%{
       args: [accountNumber: accountNumber],
-      call: {ExAxos.AccountTrustedContactPerson, :retrieve_trusted_contact_person_using_get},
+      call: {ExAxos.AccountTrustedContactPerson, :retrieve_trusted_contact_person},
       url: "/rest/account/v1/trustedContactPerson/#{accountNumber}",
       method: :get,
       response: [
@@ -60,14 +60,14 @@ defmodule ExAxos.AccountTrustedContactPerson do
 
   Save trusted contact person
   """
-  @spec save_trusted_contact_person_using_put(ExAxos.Schema.TrustedContactDigest.t(), keyword) ::
+  @spec save_trusted_contact_person(ExAxos.Schema.TrustedContactDigest.t(), keyword) ::
           {:ok, ExAxos.Schema.TrustedContactResponse.t()} | :error
-  def save_trusted_contact_person_using_put(body, opts \\ []) do
+  def save_trusted_contact_person(body, opts \\ []) do
     client = opts[:client] || @default_client
 
     client.request(%{
       args: [body: body],
-      call: {ExAxos.AccountTrustedContactPerson, :save_trusted_contact_person_using_put},
+      call: {ExAxos.AccountTrustedContactPerson, :save_trusted_contact_person},
       url: "/rest/account/v1/trustedContactPerson/save",
       body: body,
       method: :put,

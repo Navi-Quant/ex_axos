@@ -10,7 +10,7 @@ defmodule ExAxos.PeopleOrganization do
 
   Update the person organizational information.
   """
-  @spec update_person_organizations_using_get(
+  @spec update_person_organizations(
           String.t(),
           integer,
           String.t(),
@@ -18,14 +18,7 @@ defmodule ExAxos.PeopleOrganization do
           String.t(),
           keyword
         ) :: {:ok, ExAxos.Schema.RequestStatus.t()} | :error
-  def update_person_organizations_using_get(
-        advisorId,
-        personId,
-        tenantId,
-        userId,
-        userType,
-        opts \\ []
-      ) do
+  def update_person_organizations(advisorId, personId, tenantId, userId, userType, opts \\ []) do
     client = opts[:client] || @default_client
 
     client.request(%{
@@ -36,7 +29,7 @@ defmodule ExAxos.PeopleOrganization do
         userId: userId,
         userType: userType
       ],
-      call: {ExAxos.PeopleOrganization, :update_person_organizations_using_get},
+      call: {ExAxos.PeopleOrganization, :update_person_organizations},
       url: "/rest/role/update/#{advisorId}/#{tenantId}/#{userType}/#{userId}/#{personId}",
       method: :get,
       response: [

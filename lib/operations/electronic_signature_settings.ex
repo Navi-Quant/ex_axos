@@ -10,14 +10,14 @@ defmodule ExAxos.ElectronicSignatureSettings do
 
   Retrieves a list of account forms that are available to use in the eSignature process.
   """
-  @spec retrieve_envelope_account_forms_using_get(String.t(), keyword) ::
+  @spec retrieve_envelope_account_forms(String.t(), keyword) ::
           {:ok, ExAxos.Schema.EnvelopeSettingsAccountFormsDigest.t()} | :error
-  def retrieve_envelope_account_forms_using_get(accountNumber, opts \\ []) do
+  def retrieve_envelope_account_forms(accountNumber, opts \\ []) do
     client = opts[:client] || @default_client
 
     client.request(%{
       args: [accountNumber: accountNumber],
-      call: {ExAxos.ElectronicSignatureSettings, :retrieve_envelope_account_forms_using_get},
+      call: {ExAxos.ElectronicSignatureSettings, :retrieve_envelope_account_forms},
       url: "/rest/esignature/v1/envelopeSettings/accountForms/#{accountNumber}",
       method: :get,
       response: [
@@ -35,14 +35,14 @@ defmodule ExAxos.ElectronicSignatureSettings do
 
   Retrieves a list of personal templates that are available to use in the eSignature process.
   """
-  @spec retrieve_envelope_advisor_templates_using_get(String.t(), keyword) ::
+  @spec retrieve_envelope_advisor_templates(String.t(), keyword) ::
           {:ok, ExAxos.Schema.EnvelopeSettingsAccountFormsDigest.t()} | :error
-  def retrieve_envelope_advisor_templates_using_get(accountNumber, opts \\ []) do
+  def retrieve_envelope_advisor_templates(accountNumber, opts \\ []) do
     client = opts[:client] || @default_client
 
     client.request(%{
       args: [accountNumber: accountNumber],
-      call: {ExAxos.ElectronicSignatureSettings, :retrieve_envelope_advisor_templates_using_get},
+      call: {ExAxos.ElectronicSignatureSettings, :retrieve_envelope_advisor_templates},
       url: "/rest/esignature/v1/envelopeSettings/advisorTemplates/#{accountNumber}",
       method: :get,
       response: [
@@ -60,14 +60,14 @@ defmodule ExAxos.ElectronicSignatureSettings do
 
   Retrieves a list of proposals that are available to use in the eSignature process.
   """
-  @spec retrieve_envelope_proposal_using_get(String.t(), keyword) ::
+  @spec retrieve_envelope_proposal(String.t(), keyword) ::
           {:ok, ExAxos.Schema.EnvelopeSettingsProposalDigest.t()} | :error
-  def retrieve_envelope_proposal_using_get(accountNumber, opts \\ []) do
+  def retrieve_envelope_proposal(accountNumber, opts \\ []) do
     client = opts[:client] || @default_client
 
     client.request(%{
       args: [accountNumber: accountNumber],
-      call: {ExAxos.ElectronicSignatureSettings, :retrieve_envelope_proposal_using_get},
+      call: {ExAxos.ElectronicSignatureSettings, :retrieve_envelope_proposal},
       url: "/rest/esignature/v1/envelopeSettings/proposals/#{accountNumber}",
       method: :get,
       response: [
@@ -85,14 +85,14 @@ defmodule ExAxos.ElectronicSignatureSettings do
 
   Retrieves a list of recipients that are available to use in the eSignature process.
   """
-  @spec retrieve_envelope_recipients_using_get(String.t(), keyword) ::
+  @spec retrieve_envelope_recipients(String.t(), keyword) ::
           {:ok, ExAxos.Schema.EnvelopeSettingsRecipientsDigest.t()} | :error
-  def retrieve_envelope_recipients_using_get(accountNumber, opts \\ []) do
+  def retrieve_envelope_recipients(accountNumber, opts \\ []) do
     client = opts[:client] || @default_client
 
     client.request(%{
       args: [accountNumber: accountNumber],
-      call: {ExAxos.ElectronicSignatureSettings, :retrieve_envelope_recipients_using_get},
+      call: {ExAxos.ElectronicSignatureSettings, :retrieve_envelope_recipients},
       url: "/rest/esignature/v1/envelopeSettings/recipients/#{accountNumber}",
       method: :get,
       response: [
@@ -110,14 +110,14 @@ defmodule ExAxos.ElectronicSignatureSettings do
 
   Retrieves all of the eSignature settings that are available to build a request for an account. Included are the available account forms, recipients, and proposals.
   """
-  @spec retrieve_envelope_settings_using_get(String.t(), keyword) ::
+  @spec retrieve_envelope_settings(String.t(), keyword) ::
           {:ok, ExAxos.Schema.EnvelopeSettingsDigest.t()} | :error
-  def retrieve_envelope_settings_using_get(accountNumber, opts \\ []) do
+  def retrieve_envelope_settings(accountNumber, opts \\ []) do
     client = opts[:client] || @default_client
 
     client.request(%{
       args: [accountNumber: accountNumber],
-      call: {ExAxos.ElectronicSignatureSettings, :retrieve_envelope_settings_using_get},
+      call: {ExAxos.ElectronicSignatureSettings, :retrieve_envelope_settings},
       url: "/rest/esignature/v1/envelopeSettings/#{accountNumber}",
       method: :get,
       response: [
@@ -138,15 +138,15 @@ defmodule ExAxos.ElectronicSignatureSettings do
     * `templateLocked`: templateLocked
 
   """
-  @spec retrieve_templates_locked_using_get(String.t(), keyword) ::
+  @spec retrieves_docusign_templates_filtered_by_template_locked_attribute(String.t(), keyword) ::
           {:ok, ExAxos.Schema.DocusignFormDigest.t()} | :error
-  def retrieve_templates_locked_using_get(accountNumber, opts \\ []) do
+  def retrieves_docusign_templates_filtered_by_template_locked_attribute(accountNumber, opts \\ []) do
     client = opts[:client] || @default_client
     query = Keyword.take(opts, [:templateLocked])
 
     client.request(%{
       args: [accountNumber: accountNumber],
-      call: {ExAxos.ElectronicSignatureSettings, :retrieve_templates_locked_using_get},
+      call: {ExAxos.ElectronicSignatureSettings, :retrieves_docusign_templates_filtered_by_template_locked_attribute},
       url: "/rest/esignature/v1/docusign/templates/#{accountNumber}",
       method: :get,
       query: query,
@@ -163,14 +163,14 @@ defmodule ExAxos.ElectronicSignatureSettings do
   @doc """
   Unlocks all templates recipients signers templateLocked
   """
-  @spec update_all_signers_template_locked_using_put(String.t(), keyword) ::
+  @spec unlocks_all_templates_recipients_signers_templatelocked(String.t(), keyword) ::
           {:ok, ExAxos.Schema.RestResultDigest.t()} | :error
-  def update_all_signers_template_locked_using_put(accountNumber, opts \\ []) do
+  def unlocks_all_templates_recipients_signers_templatelocked(accountNumber, opts \\ []) do
     client = opts[:client] || @default_client
 
     client.request(%{
       args: [accountNumber: accountNumber],
-      call: {ExAxos.ElectronicSignatureSettings, :update_all_signers_template_locked_using_put},
+      call: {ExAxos.ElectronicSignatureSettings, :unlocks_all_templates_recipients_signers_templatelocked},
       url: "/rest/esignature/v1/docusign/templates/#{accountNumber}/unlocksigners",
       method: :put,
       response: [
@@ -187,16 +187,18 @@ defmodule ExAxos.ElectronicSignatureSettings do
   @doc """
   Unlocks the corresponding template id recipients signers templateLocked
   """
-  @spec update_recipients_signers_using_put(String.t(), String.t(), keyword) ::
-          {:ok, ExAxos.Schema.RestResultDigest.t()} | :error
-  def update_recipients_signers_using_put(accountNumber, templateId, opts \\ []) do
+  @spec unlocks_corresponding_template_id_recipients_signers_templatelocked(
+          String.t(),
+          String.t(),
+          keyword
+        ) :: {:ok, ExAxos.Schema.RestResultDigest.t()} | :error
+  def unlocks_corresponding_template_id_recipients_signers_templatelocked(accountNumber, templateId, opts \\ []) do
     client = opts[:client] || @default_client
 
     client.request(%{
       args: [accountNumber: accountNumber, templateId: templateId],
-      call: {ExAxos.ElectronicSignatureSettings, :update_recipients_signers_using_put},
-      url:
-        "/rest/esignature/v1/docusign/templates/#{accountNumber}/unlocktemplatesigners/#{templateId}",
+      call: {ExAxos.ElectronicSignatureSettings, :unlocks_corresponding_template_id_recipients_signers_templatelocked},
+      url: "/rest/esignature/v1/docusign/templates/#{accountNumber}/unlocktemplatesigners/#{templateId}",
       method: :put,
       response: [
         {200, {ExAxos.Schema.RestResultDigest, :t}},

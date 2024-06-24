@@ -10,14 +10,14 @@ defmodule ExAxos.AccountAssetsInTransfer do
 
   Retrieves the detailed assets in transfer for an account
   """
-  @spec view_assets_in_transfer_v1_using_get(String.t(), keyword) ::
+  @spec assets_in_transfer(String.t(), keyword) ::
           {:ok, ExAxos.Schema.AccountAssetsInTransferResultDigest.t()} | :error
-  def view_assets_in_transfer_v1_using_get(accountNumber, opts \\ []) do
+  def assets_in_transfer(accountNumber, opts \\ []) do
     client = opts[:client] || @default_client
 
     client.request(%{
       args: [accountNumber: accountNumber],
-      call: {ExAxos.AccountAssetsInTransfer, :view_assets_in_transfer_v1_using_get},
+      call: {ExAxos.AccountAssetsInTransfer, :assets_in_transfer},
       url: "/rest/account/v1/assetsInTransfer/#{accountNumber}",
       method: :get,
       response: [

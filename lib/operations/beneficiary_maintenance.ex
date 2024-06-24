@@ -10,14 +10,14 @@ defmodule ExAxos.BeneficiaryMaintenance do
 
   Create a new Beneficiary that can be used to attach to an account
   """
-  @spec create_beneficiary_v1_using_post(ExAxos.Schema.BeneficiaryCreateRestRequest.t(), keyword) ::
+  @spec create_beneficiary(ExAxos.Schema.BeneficiaryCreateRestRequest.t(), keyword) ::
           {:ok, ExAxos.Schema.RestResultDigest.t()} | :error
-  def create_beneficiary_v1_using_post(body, opts \\ []) do
+  def create_beneficiary(body, opts \\ []) do
     client = opts[:client] || @default_client
 
     client.request(%{
       args: [body: body],
-      call: {ExAxos.BeneficiaryMaintenance, :create_beneficiary_v1_using_post},
+      call: {ExAxos.BeneficiaryMaintenance, :create_beneficiary},
       url: "/rest/beneficiary/v1/beneficiary/create",
       body: body,
       method: :post,
@@ -38,17 +38,14 @@ defmodule ExAxos.BeneficiaryMaintenance do
 
   Update a beneficiary that already exists.
   """
-  @spec edit_beneficiary_v1_using_post(
-          String.t(),
-          ExAxos.Schema.BeneficiaryCreateRestRequest.t(),
-          keyword
-        ) :: {:ok, ExAxos.Schema.RestResultDigest.t()} | :error
-  def edit_beneficiary_v1_using_post(beneficiaryId, body, opts \\ []) do
+  @spec update_beneficiary(String.t(), ExAxos.Schema.BeneficiaryCreateRestRequest.t(), keyword) ::
+          {:ok, ExAxos.Schema.RestResultDigest.t()} | :error
+  def update_beneficiary(beneficiaryId, body, opts \\ []) do
     client = opts[:client] || @default_client
 
     client.request(%{
       args: [beneficiaryId: beneficiaryId, body: body],
-      call: {ExAxos.BeneficiaryMaintenance, :edit_beneficiary_v1_using_post},
+      call: {ExAxos.BeneficiaryMaintenance, :update_beneficiary},
       url: "/rest/beneficiary/v1/beneficiary/edit/#{beneficiaryId}",
       body: body,
       method: :post,
