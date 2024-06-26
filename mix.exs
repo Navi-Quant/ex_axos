@@ -25,7 +25,8 @@ defmodule ExAxos.MixProject do
       {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
       {:styler, "~> 0.11", only: [:dev, :test], runtime: false},
       {:oapi_generator, "~> 0.1.1", only: :dev, runtime: false},
-      {:req, "0.5.0"}
+      {:req, "0.5.0"},
+      {:hammer, "~> 6.2"}
     ]
   end
 

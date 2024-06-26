@@ -2,10 +2,34 @@ defmodule ExAxos.Client do
   @moduledoc false
 
   def request(operation) do
-    request = build_request(operation)
+    api_key = operation.opts[:api_key]
 
-    with {:ok, response} <- Req.request(request) do
+    with :ok <- check_rate_limit(api_key),
+         {:ok, response} <- Req.request(build_request(operation)) do
       handle_response(response, operation.response)
+    end
+  end
+
+  defp check_rate_limit(api_key) do
+    bucket = "api_key:#{api_key}"
+    interval = request_interval()
+    limit = request_limit()
+
+    case Hammer.check_rate(bucket, interval, limit) do
+      {:allow, _count} ->
+        :ok
+
+      {:deny, _limit} ->
+        case Hammer.inspect_bucket(bucket, interval, limit) do
+          {:ok, {_, _, next_bucket_ms, _, _}} ->
+            {:error, {:rate_limit_exceeded, next_bucket_ms}}
+
+          {:error, reason} ->
+            {:error, {:rate_limit_exceeded, reason}}
+        end
+
+      {:error, reason} ->
+        {:error, {:rate_limit_error, reason}}
     end
   end
 
@@ -33,7 +57,7 @@ defmodule ExAxos.Client do
     {status, type} = Enum.find(response_types, fn {status, _} -> status == res.status end)
 
     if type == :null do
-      {:error, error_response(status)}
+      {:error, status_to_error(status)}
     else
       {:ok, do_decode(res.body, type)}
     end
@@ -66,8 +90,11 @@ defmodule ExAxos.Client do
 
   defp do_decode(value, _type), do: value
 
-  defp error_response(401), do: :unauthorized
-  defp error_response(403), do: :forbidden
-  defp error_response(404), do: :not_found
-  defp error_response(500), do: :server_error
+  defp status_to_error(401), do: :unauthorized
+  defp status_to_error(403), do: :forbidden
+  defp status_to_error(404), do: :not_found
+  defp status_to_error(500), do: :server_error
+
+  defp request_limit, do: Application.get_env(:ex_axos, :request_limit, 60)
+  defp request_interval, do: Application.get_env(:ex_axos, :interval, :timer.minutes(1))
 end
