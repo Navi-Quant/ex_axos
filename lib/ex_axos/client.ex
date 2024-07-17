@@ -2,16 +2,66 @@ defmodule ExAxos.Client do
   @moduledoc false
 
   def request(operation) do
-    api_key = operation.opts[:api_key]
-
-    with :ok <- check_rate_limit(api_key),
-         {:ok, response} <- Req.request(build_request(operation)) do
+    with {:ok, request} <- build_request(operation),
+         :ok <- check_rate_limit(operation),
+         {:ok, response} <- Req.request(request) do
+      IO.inspect(request)
       handle_response(response, operation.response)
     end
   end
 
-  defp check_rate_limit(api_key) do
-    bucket = "api_key:#{api_key}"
+  defp build_request(operation) do
+    %{url: url, method: method, opts: opts} = operation
+    query = Map.get(operation, :query, [])
+
+    prod? = opts[:prod?]
+    auth = opts[:auth]
+
+    using_oauth? = match?({:oauth, _}, auth)
+
+    # Using OAuth requires /rest2 instead of /rest
+    url =
+      if using_oauth? do
+        String.replace_prefix(url, "/rest/", "/rest2/")
+      else
+        url
+      end
+
+    request =
+      Req.new(
+        base_url: base_url(prod?),
+        url: url,
+        method: method,
+        params: query
+      )
+
+    with {:ok, auth} <- build_auth(auth) do
+      {:ok, Req.merge(request, auth)}
+    end
+  end
+
+  defp build_auth({:basic, auth}) do
+    username = auth[:username]
+    password = auth[:password]
+    key = auth[:key]
+
+    {:ok, auth: {:basic, "#{username}:#{password}"}, headers: %{x_tca_api_key: key}}
+  end
+
+  defp build_auth({:oauth, access_token}) when is_binary(access_token) do
+    {:ok, auth: {:bearer, access_token}}
+  end
+
+  defp build_auth(:skip) do
+    {:ok, []}
+  end
+
+  defp build_auth(_auth) do
+    {:error, :unsupported_auth_type}
+  end
+
+  defp check_rate_limit(operation) do
+    bucket = request_bucket(operation)
     interval = request_interval()
     limit = request_limit()
 
@@ -33,24 +83,13 @@ defmodule ExAxos.Client do
     end
   end
 
-  @base_url "https://qa.axosadvisorservices.com/liberty"
+  defp request_bucket(operation) do
+    auth = operation.opts[:auth]
 
-  defp build_request(operation) do
-    %{url: url, method: method, opts: opts} = operation
-    query = Map.get(operation, :query, [])
-
-    username = opts[:username]
-    password = opts[:password]
-    api_key = opts[:api_key]
-
-    Req.new(
-      base_url: @base_url,
-      url: url,
-      method: method,
-      auth: {:basic, "#{username}:#{password}"},
-      headers: %{x_tca_api_key: api_key},
-      params: query
-    )
+    case auth do
+      {:basic, basic} -> "basic:#{basic[:username]}"
+      {:oauth, access} -> "oauth:#{access}"
+    end
   end
 
   defp handle_response(%Req.Response{} = res, response_types) do
@@ -97,4 +136,14 @@ defmodule ExAxos.Client do
 
   defp request_limit, do: Application.get_env(:ex_axos, :request_limit, 60)
   defp request_interval, do: Application.get_env(:ex_axos, :interval, :timer.minutes(1))
+
+  defp base_url(prod?) do
+    prod? = prod? || Application.get_env(:ex_axos, :prod?, false)
+
+    if prod? do
+      "https://app.axosadvisorservices.com/liberty"
+    else
+      "https://qa.axosadvisorservices.com/liberty"
+    end
+  end
 end
