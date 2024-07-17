@@ -31,4 +31,30 @@ defmodule ExAxos.Auth do
       opts: [{:auth, :skip} | opts]
     })
   end
+
+  def refresh_token(client_id, client_secret, refresh_token, opts \\ []) do
+    client = opts[:client] || @default_client
+
+    body = [
+      grant_type: "refresh_token",
+      client_id: client_id,
+      client_secret: client_secret,
+      refresh_token: refresh_token
+    ]
+
+    client.request(%{
+      args: [],
+      call: {ExAxos.Auth, :refresh_token},
+      url: "/oauth/token",
+      method: :post,
+      query: body,
+      response: [
+        {200, {ExAxos.Auth.AccessTokenDigest, :t}},
+        {400, :null},
+        {401, :null},
+        {404, :null}
+      ],
+      opts: [{:auth, :skip} | opts]
+    })
+  end
 end

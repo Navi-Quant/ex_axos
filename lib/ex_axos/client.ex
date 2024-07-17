@@ -5,7 +5,6 @@ defmodule ExAxos.Client do
     with {:ok, request} <- build_request(operation),
          :ok <- check_rate_limit(operation),
          {:ok, response} <- Req.request(request) do
-      IO.inspect(request)
       handle_response(response, operation.response)
     end
   end
@@ -89,6 +88,7 @@ defmodule ExAxos.Client do
     case auth do
       {:basic, basic} -> "basic:#{basic[:username]}"
       {:oauth, access} -> "oauth:#{access}"
+      :skip -> "auth_setup"
     end
   end
 
